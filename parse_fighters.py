@@ -1,5 +1,5 @@
 import re
-FIGHTER = 'fighter_names'
+FIGHTER = 'fighters'
 REGEX = 'id\/(\d+)\/(\w+)-(\w+)'
 fo = open(FIGHTER, 'r')
 line = fo.readline()
