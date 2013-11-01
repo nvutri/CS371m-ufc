@@ -7,7 +7,6 @@ public class Records {
 	private int wins;
 	private int submission;
 	private int knockout;
-	private int decision;
 	private int losses;
 
 	/**
@@ -16,16 +15,13 @@ public class Records {
 	 * @param wins
 	 * @param submission
 	 * @param knockout
-	 * @param decision
 	 * @param losses
 	 */
-	public Records(int wins, int submission, int knockout, int decision,
-			int losses) {
+	public Records(int wins, int submission, int knockout, int losses) {
 		super();
 		this.wins = wins;
 		this.submission = submission;
 		this.knockout = knockout;
-		this.decision = decision;
 		this.losses = losses;
 	}
 
@@ -53,14 +49,6 @@ public class Records {
 		this.knockout = knockout;
 	}
 
-	public int getDecision() {
-		return decision;
-	}
-
-	public void setDecision(int decision) {
-		this.decision = decision;
-	}
-
 	public int getLosses() {
 		return losses;
 	}
@@ -69,4 +57,9 @@ public class Records {
 		this.losses = losses;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("Wins %d, Submission %d, KO %d, Losses %d",
+				this.wins, this.submission, this.knockout, this.losses);
+	}
 }
