@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.view.Menu;
 import android.view.Window;
 import android.widget.TextView;
@@ -21,6 +24,8 @@ public class FighterProfileActivity extends Activity {
 	
 	//temporary until back-end is ready
 	ArrayList<String> fighterProfile = new ArrayList<String>();
+	
+	//Fighter Profile View
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
