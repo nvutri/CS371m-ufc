@@ -14,8 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="yftvn.ufc.FighterProfileActivity"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:name="yftvn.ufc.FighterProfileActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
