@@ -32,30 +32,39 @@ public class Scrapers {
 		pw.println(FIGHTERS_RECORD_COL);
 
 		String line;
-		while ((line = br.readLine()) != null) {
-			line = br.readLine();
-			String delims = "\t";
-			String[] tokens = line.split(delims);
-			int espnId = Integer.parseInt(tokens[0]);
-			String firstName = tokens[1];
-			String lastName = tokens[2];
+		int lineNumber = 0;
+		try {
+			while ((line = br.readLine()) != null) {
+				++lineNumber;
+				line = br.readLine();
+				String delims = "\t";
+				String[] tokens = line.split(delims);
+				int espnId = Integer.parseInt(tokens[0]);
+				String firstName = tokens[1];
+				String lastName = tokens[2];
 
-			Fighters fighter = scrapeFighter(espnId, firstName, lastName);
-			if (fighter != null) {
-				Records rec = fighter.getRecord();
-				String fighterInfo = String
-						.format(FIGHTERS_RECORD_FORMAT, fighter.getEspnId(),
-								fighter.getFirstName(), fighter.getLastName(),
-								rec.getWins(), rec.getSubmission(),
-								rec.getKnockout(), rec.getLosses());
-				pw.println(fighterInfo);
-			} else {
-				System.out.printf("Fighter %d %s %s - No photo\n", espnId,
-						firstName, lastName);
+				Fighters fighter = scrapeFighter(espnId, firstName, lastName);
+				if (fighter != null) {
+					Records rec = fighter.getRecord();
+					String fighterInfo = String.format(FIGHTERS_RECORD_FORMAT,
+							fighter.getEspnId(), fighter.getFirstName(),
+							fighter.getLastName(), rec.getWins(),
+							rec.getSubmission(), rec.getKnockout(),
+							rec.getLosses());
+					pw.println(fighterInfo);
+					pw.flush();
+					System.out.printf("%d: Fighter %d %s %s Known \n",
+							lineNumber, espnId, firstName, lastName);
+				} else {
+					System.out.printf("%d: Fighter %d %s %s - No photo\n",
+							lineNumber, espnId, firstName, lastName);
+				}
+				
 			}
+		} finally {
+			pw.close();
+			br.close();
 		}
-		pw.close();
-		br.close();
 	}
 
 	/**
