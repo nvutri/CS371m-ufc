@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">UFC Fighter App</string>
+    <string name="action_settings">Settings</string>
+    <string name="name">Name</string>
+    <string name="wins">Wins</string>
+    <string name="wko">KO</string>
+    <string name="wsub">Sub</string>
+    <string name="wd">Decision</string>
+    <string name="losses">Losses</string>
+    <string name="titles">Titles</string>
+
+</resources>

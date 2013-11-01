@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+    
+	<RelativeLayout 
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+	    <TextView
+            android:id="@+id/name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/name"
+            android:textSize="20dp" />
+	    
+	    <TextView
+            android:id="@+id/wins"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/wins"
+            android:textSize="20dp" />
+	    
+	    <TextView
+            android:id="@+id/wko"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wins"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/wko"
+            android:textSize="20dp" />
+	    
+	    <TextView
+            android:id="@+id/wsub"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wko"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/wsub"
+            android:textSize="20dp" />
+	    
+	    <TextView
+            android:id="@+id/wd"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wsub"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/wd"
+            android:textSize="20dp" />
+	    
+	    <TextView
+            android:id="@+id/losses"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wd"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/losses"
+            android:textSize="20dp" />
+	    
+	    <TextView
+            android:id="@+id/titles"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/losses"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/titles"
+            android:textSize="20dp" />
+
+	</RelativeLayout>
+</LinearLayout>
