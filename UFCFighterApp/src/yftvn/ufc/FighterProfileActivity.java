@@ -1,6 +1,8 @@
 package yftvn.ufc;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -23,9 +25,10 @@ public class FighterProfileActivity extends Activity {
 	private TextView mTitlesTextView;
 	
 	//temporary until back-end is ready
-	ArrayList<String> fighterProfile = new ArrayList<String>();
+	HashMap<String, String> fighterProfile = new HashMap<String, String>();
 	
 	//Fighter Profile View
+	private FighterProfileView mFPView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,9 @@ public class FighterProfileActivity extends Activity {
 		
 		//fill in the text info here
 		testDataFighterProfile();
+		
+		mFPView = (FighterProfileView) findViewById(R.id.pic);
+		mFPView.initialize(fighterProfile.get("name"));
 		
 	}
 	
@@ -62,21 +68,21 @@ public class FighterProfileActivity extends Activity {
 	//temporary until back-end is ready
 	private void testDataFighterProfile()
 	{
-		fighterProfile.add("Anderson Silva");
-		fighterProfile.add("33");
-		fighterProfile.add("20");
-		fighterProfile.add("6");
-		fighterProfile.add("7");
-		fighterProfile.add("5");
-		fighterProfile.add("Ex-Champion");
+		fighterProfile.put("name", "Anderson Silva");
+		fighterProfile.put("wins", "33");
+		fighterProfile.put("wko", "20");
+		fighterProfile.put("wsub", "6");
+		fighterProfile.put("wd", "7");
+		fighterProfile.put("losses", "5");
+		fighterProfile.put("titles", "Ex-Champion");
 		
-		mNameTextView.setText(fighterProfile.get(0));
-		mWinsTextView.setText(fighterProfile.get(1));
-		mWKOTextView.setText(fighterProfile.get(2));
-		mWSubTextView.setText(fighterProfile.get(3));
-		mWDTextView.setText(fighterProfile.get(4));
-		mLossesTextView.setText(fighterProfile.get(5));
-		mTitlesTextView.setText(fighterProfile.get(6));
+		mNameTextView.setText(fighterProfile.get("name"));
+		mWinsTextView.setText(fighterProfile.get("wins"));
+		mWKOTextView.setText(fighterProfile.get("wko"));
+		mWSubTextView.setText(fighterProfile.get("wsub"));
+		mWDTextView.setText(fighterProfile.get("wd"));
+		mLossesTextView.setText(fighterProfile.get("losses"));
+		mTitlesTextView.setText(fighterProfile.get("titles"));
 	}
 
 }

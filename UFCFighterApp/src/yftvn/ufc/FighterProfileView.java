@@ -41,7 +41,7 @@ public class FighterProfileView extends View
 		
 		canvas.drawBitmap(fighterPic, 
 						null, // src
-						new Rect(0, 0, 150, 150), // dest
+						new Rect(0, 0, 250, 250), // dest
 						null);
 	}
 

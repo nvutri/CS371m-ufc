@@ -5,8 +5,15 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
     
+    <yftvn.ufc.FighterProfileView
+	        android:id="@+id/pic"
+	        android:layout_width="150dp"
+	        android:layout_height="150dp"
+	        android:layout_below="@+id/name"
+	        android:layout_marginTop="5dp"
+	        android:gravity="center_horizontal" />
+    
 	<RelativeLayout 
-	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
@@ -20,64 +27,153 @@
             android:textSize="20dp" />
 	    
 	    <TextView
-            android:id="@+id/wins"
-            android:layout_width="fill_parent"
+            android:id="@+id/wins_label"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/name"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
+            android:paddingLeft="10dp"
             android:text="@string/wins"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textStyle="bold" />
+        
+        <TextView
+            android:id="@+id/wins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/wko_label"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:paddingRight="20dp"
+            android:text="0"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+	    
+	    <TextView
+            android:id="@+id/wko_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/wins_label"
+            android:layout_below="@+id/wins_label"
+            android:layout_marginTop="14dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:text="@string/wko"
+            android:textSize= "15dp" />
 	    
 	    <TextView
             android:id="@+id/wko"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/wins"
-            android:layout_marginTop="20dp"
+            android:layout_alignBaseline="@+id/wko_label"
+            android:layout_alignBottom="@+id/wko_label"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:paddingRight="20dp"
+            android:text="0"
+            android:textSize= "15dp" />
+	    
+	    <TextView
+            android:id="@+id/wsub_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/wko_label"
+            android:layout_below="@+id/wko_label"
+            android:layout_marginTop="14dp"
             android:gravity="center_horizontal"
-            android:text="@string/wko"
-            android:textSize="20dp" />
+            android:paddingLeft="10dp"
+            android:text="@string/wsub"
+            android:textSize= "15dp" />
 	    
 	    <TextView
             android:id="@+id/wsub"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/wko"
-            android:layout_marginTop="20dp"
+            android:layout_alignBaseline="@+id/wsub_label"
+            android:layout_alignBottom="@+id/wsub_label"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:paddingRight="20dp"
+            android:text="0"
+            android:textSize="15dp" />
+	    
+	    <TextView
+            android:id="@+id/wd_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/wsub_label"
+            android:layout_below="@+id/wsub_label"
+            android:layout_marginTop="14dp"
             android:gravity="center_horizontal"
-            android:text="@string/wsub"
-            android:textSize="20dp" />
+            android:paddingLeft="10dp"
+            android:text="@string/wd"
+            android:textSize="15dp" />
 	    
 	    <TextView
             android:id="@+id/wd"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/wsub"
-            android:layout_marginTop="20dp"
+            android:layout_alignBaseline="@+id/wd_label"
+            android:layout_alignBottom="@+id/wd_label"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:paddingRight="20dp"
+            android:text="0"
+            android:textSize="15dp" />
+	    
+	    <TextView
+            android:id="@+id/losses_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/wd_label"
+            android:layout_below="@+id/wd_label"
+            android:layout_marginTop="14dp"
             android:gravity="center_horizontal"
-            android:text="@string/wd"
-            android:textSize="20dp" />
+            android:paddingLeft="10dp"
+            android:text="@string/losses"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 	    
 	    <TextView
             android:id="@+id/losses"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/wd"
-            android:layout_marginTop="20dp"
+            android:layout_alignBaseline="@+id/losses_label"
+            android:layout_alignBottom="@+id/losses_label"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:paddingRight="20dp"
+            android:text="0"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+	    
+		<TextView
+            android:id="@+id/titles_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/losses_label"
+            android:layout_below="@+id/losses_label"
+            android:layout_marginTop="14dp"
             android:gravity="center_horizontal"
-            android:text="@string/losses"
-            android:textSize="20dp" />
+            android:paddingLeft="10dp"
+            android:text="@string/titles"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 	    
 	    <TextView
             android:id="@+id/titles"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/losses"
-            android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
-            android:text="@string/titles"
-            android:textSize="20dp" />
+            android:layout_alignBaseline="@+id/titles_label"
+            android:layout_alignBottom="@+id/titles_label"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:paddingRight="20dp"
+            android:text="0"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
 	</RelativeLayout>
 </LinearLayout>
