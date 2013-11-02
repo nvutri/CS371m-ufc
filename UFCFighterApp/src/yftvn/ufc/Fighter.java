@@ -6,7 +6,6 @@ import com.parse.ParseObject;
  * Fighter Info.
  * 
  * @author nvutri
- * 
  */
 public class Fighter {
 	private int espnId;
@@ -36,10 +35,20 @@ public class Fighter {
 	 * @param fighterParse
 	 */
 	public Fighter(int espnId, ParseObject fighterParse) {
+		this(espnId, fighterParse.getString("firstName"), fighterParse
+				.getString("lastName"), new Record(fighterParse));
 		assert espnId == fighterParse.getInt("espnId");
-		this.firstName = fighterParse.getString("firstName");
-		this.lastName = fighterParse.getString("lastName");
-		this.record = new Record(fighterParse);
+	}
+
+	/**
+	 * Construct basic fighter with no record.
+	 * 
+	 * @param espnId
+	 * @param firstName
+	 * @param lastName
+	 */
+	public Fighter(int espnId, String firstName, String lastName) {
+		this(espnId, firstName, lastName, null);
 	}
 
 	public int getEspnId() {
