@@ -2,20 +2,19 @@ package yftvn.ufc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
+import android.os.Bundle;
 import android.view.Menu;
-import android.view.Window;
 import android.widget.TextView;
 
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+
 public class FighterProfileActivity extends Activity {
-	
-	//is this the route to go?
+
+	// is this the route to go?
 	private TextView mNameTextView;
 	private TextView mWinsTextView;
 	private TextView mWKOTextView;
@@ -30,25 +29,30 @@ public class FighterProfileActivity extends Activity {
 	//Fighter Profile View
 	private FighterProfileView mFPView;
 
+	// Fighter Profile View
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		//requestWindowFeature(Window.FEATURE_NO_TITLE);
+		// requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
+		final String PARSE_APPLICATION_ID = "AJ0JAEbsMNs3pRi9poiROGLxopvwD9Y44aXs8rkz";
+		final String PARSE_CLIENT_KEY = "ia1k06D9lHgWncELjHm49xsrbREVWUCn7flMc0ic";
+		Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
+		ParseAnalytics.trackAppOpened(getIntent());
 		setContentView(R.layout.fighter_profile);
-		
+
 		setTextViewInfo();
-		
-		//fill in the text info here
+
+		// fill in the text info here
 		testDataFighterProfile();
 		
 		mFPView = (FighterProfileView) findViewById(R.id.pic);
 		mFPView.initialize(fighterProfile.get("name"));
 		
 	}
-	
+
 	// helper method for setting the text views
-	private void setTextViewInfo() 
-	{
+	private void setTextViewInfo() {
 		mNameTextView = (TextView) findViewById(R.id.name);
 		mWinsTextView = (TextView) findViewById(R.id.wins);
 		mWKOTextView = (TextView) findViewById(R.id.wko);
@@ -64,6 +68,7 @@ public class FighterProfileActivity extends Activity {
 		getMenuInflater().inflate(R.menu.fighter_profile, menu);
 		return true;
 	}
+
 	
 	//temporary until back-end is ready
 	private void testDataFighterProfile()
