@@ -1,58 +1,56 @@
 package yftvn.ufc;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import android.os.Bundle;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.TextView;
 
 import com.parse.Parse;
-import com.parse.ParseAnalytics;
 
 public class FighterProfileActivity extends Activity {
 
 	// is this the route to go?
-	private TextView mNameTextView;
-	private TextView mWinsTextView;
-	private TextView mWKOTextView;
-	private TextView mWSubTextView;
-	private TextView mWDTextView;
-	private TextView mLossesTextView;
-	private TextView mTitlesTextView;
-	
-	//temporary until back-end is ready
-	HashMap<String, String> fighterProfile = new HashMap<String, String>();
-	
-	//Fighter Profile View
-	private FighterProfileView mFPView;
+	private static TextView mNameTextView;
+	private static TextView mWinsTextView;
+	private static TextView mWKOTextView;
+	private static TextView mWSubTextView;
+	private static TextView mWDTextView;
+	private static TextView mLossesTextView;
+	private static TextView mTitlesTextView;
 
 	// Fighter Profile View
+	private FighterProfileView mFPView;
+
+	// Hard coded Fighter id for now.
+	private static final int FIGHTER_ESPN_ID = 2335447;
+
+	private static final String PARSE_APPLICATION_ID = "AJ0JAEbsMNs3pRi9poiROGLxopvwD9Y44aXs8rkz";
+	private static final String PARSE_CLIENT_KEY = "ia1k06D9lHgWncELjHm49xsrbREVWUCn7flMc0ic";
 
 	@Override
+	/**
+	 * When the activity is onCreate:
+	 * 1) Initialize Parse connection.
+	 * 2) Display Fighter Profile data.
+	 * 3) Display Fighter Picture.
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
-		// requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
-		final String PARSE_APPLICATION_ID = "AJ0JAEbsMNs3pRi9poiROGLxopvwD9Y44aXs8rkz";
-		final String PARSE_CLIENT_KEY = "ia1k06D9lHgWncELjHm49xsrbREVWUCn7flMc0ic";
 		Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
-		ParseAnalytics.trackAppOpened(getIntent());
 		setContentView(R.layout.fighter_profile);
 
-		setTextViewInfo();
+		initTextViewInfo();
+		displayFighterProfile(FIGHTER_ESPN_ID);
 
-		// fill in the text info here
-		testDataFighterProfile();
-		
 		mFPView = (FighterProfileView) findViewById(R.id.pic);
-		mFPView.initialize(fighterProfile.get("name"));
-		
+		// TODO(yfang): Fix below initialize to display picture from espnId.
+		mFPView.initialize("FIGHTER_ESPN_ID");
 	}
 
-	// helper method for setting the text views
-	private void setTextViewInfo() {
+	/**
+	 * Associate all the TextView fields with an object.
+	 */
+	private void initTextViewInfo() {
 		mNameTextView = (TextView) findViewById(R.id.name);
 		mWinsTextView = (TextView) findViewById(R.id.wins);
 		mWKOTextView = (TextView) findViewById(R.id.wko);
@@ -69,25 +67,21 @@ public class FighterProfileActivity extends Activity {
 		return true;
 	}
 
-	
-	//temporary until back-end is ready
-	private void testDataFighterProfile()
-	{
-		fighterProfile.put("name", "Anderson Silva");
-		fighterProfile.put("wins", "33");
-		fighterProfile.put("wko", "20");
-		fighterProfile.put("wsub", "6");
-		fighterProfile.put("wd", "7");
-		fighterProfile.put("losses", "5");
-		fighterProfile.put("titles", "Ex-Champion");
-		
-		mNameTextView.setText(fighterProfile.get("name"));
-		mWinsTextView.setText(fighterProfile.get("wins"));
-		mWKOTextView.setText(fighterProfile.get("wko"));
-		mWSubTextView.setText(fighterProfile.get("wsub"));
-		mWDTextView.setText(fighterProfile.get("wd"));
-		mLossesTextView.setText(fighterProfile.get("losses"));
-		mTitlesTextView.setText(fighterProfile.get("titles"));
+	/**
+	 * Display a Fighter Profile page given his espnId.
+	 * 
+	 * @param espnId
+	 */
+	private void displayFighterProfile(int espnId) {
+		Fighter profile = FighterData.getFighter(espnId);
+		Record rec = profile.getRecord();
+		mNameTextView.setText(profile.getFullName());
+		mWinsTextView.setText(rec.getWins());
+		mWKOTextView.setText(rec.getKnockout());
+		mWSubTextView.setText(rec.getSubmission());
+		mWDTextView.setText(rec.getDecisionWins());
+		mLossesTextView.setText(rec.getLosses());
+		mTitlesTextView.setText(profile.getTitles());
 	}
 
 }

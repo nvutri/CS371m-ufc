@@ -52,6 +52,10 @@ public class Record {
 		return knockout;
 	}
 
+	public int getDecisionWins() {
+		return wins - knockout - submission;
+	}
+
 	public int getLosses() {
 		return losses;
 	}

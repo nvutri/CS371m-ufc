@@ -63,7 +63,15 @@ public class Fighter {
 		return lastName;
 	}
 
+	public String getFullName() {
+		return String.format("%s %s", firstName, lastName);
+	}
 	public Record getRecord() {
 		return record;
+	}
+	
+	public String getTitles() {
+		// TODO(nvutri): Implement Title class/queries. For now, hard coding.
+		return "Ex-Title Challenger";
 	}
 }
