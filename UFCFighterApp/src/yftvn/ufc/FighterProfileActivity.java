@@ -1,5 +1,7 @@
 package yftvn.ufc;
 
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -76,11 +78,11 @@ public class FighterProfileActivity extends Activity {
 		Fighter profile = FighterData.getFighter(espnId);
 		Record rec = profile.getRecord();
 		mNameTextView.setText(profile.getFullName());
-		mWinsTextView.setText(rec.getWins());
-		mWKOTextView.setText(rec.getKnockout());
-		mWSubTextView.setText(rec.getSubmission());
-		mWDTextView.setText(rec.getDecisionWins());
-		mLossesTextView.setText(rec.getLosses());
+		mWinsTextView.setText(String.valueOf(rec.getWins()));
+		mWKOTextView.setText(String.valueOf(rec.getKnockout()));
+		mWSubTextView.setText(String.valueOf(rec.getSubmission()));
+		mWDTextView.setText(String.valueOf(rec.getDecisionWins()));
+		mLossesTextView.setText(String.valueOf(rec.getLosses()));
 		mTitlesTextView.setText(profile.getTitles());
 	}
 
