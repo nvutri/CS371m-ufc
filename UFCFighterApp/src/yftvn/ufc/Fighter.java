@@ -55,32 +55,15 @@ public class Fighter {
 		return espnId;
 	}
 
-	public void setEspnId(int espnId) {
-		this.espnId = espnId;
-	}
-
 	public String getFirstName() {
 		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
 	}
 
 	public String getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
 	public Record getRecord() {
 		return record;
 	}
-
-	public void setRecord(Record record) {
-		this.record = record;
-	}
-
 }

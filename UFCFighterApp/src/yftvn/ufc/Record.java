@@ -44,31 +44,15 @@ public class Record {
 		return wins;
 	}
 
-	public void setWins(int wins) {
-		this.wins = wins;
-	}
-
 	public int getSubmission() {
 		return submission;
-	}
-
-	public void setSubmission(int submission) {
-		this.submission = submission;
 	}
 
 	public int getKnockout() {
 		return knockout;
 	}
 
-	public void setKnockout(int knockout) {
-		this.knockout = knockout;
-	}
-
 	public int getLosses() {
 		return losses;
-	}
-
-	public void setLosses(int losses) {
-		this.losses = losses;
 	}
 }
