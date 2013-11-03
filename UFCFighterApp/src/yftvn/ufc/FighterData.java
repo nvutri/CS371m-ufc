@@ -44,7 +44,6 @@ public class FighterData {
 			fighterParse = fighterList.get(0);
 			assert 1 == fighterList.size();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return new Fighter(espnId, fighterParse);
