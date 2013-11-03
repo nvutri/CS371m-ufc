@@ -1,17 +1,8 @@
 package yftvn.ufc;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import android.util.Log;
-
-import com.parse.GetDataCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
