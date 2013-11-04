@@ -3,8 +3,11 @@ package yftvn.ufc;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.parse.Parse;
 
 public class FighterProfileActivity extends Activity {
@@ -17,9 +20,11 @@ public class FighterProfileActivity extends Activity {
 	private static TextView mWDTextView;
 	private static TextView mLossesTextView;
 	private static TextView mTitlesTextView;
+	private static ImageView mImgView;
+	private static ImageLoader mImgLoader;
 
 	// Fighter Profile View
-	private FighterProfileView mFPView;
+	// TODO (nvutri): move view code into private FighterProfileView mFPView;
 
 	// Hard coded Fighter id for now.
 	private static final int FIGHTER_ESPN_ID = 2335447;
@@ -29,28 +34,31 @@ public class FighterProfileActivity extends Activity {
 
 	@Override
 	/**
-	 * When the activity is onCreate:
-	 * 1) Initialize Parse connection.
-	 * 2) Display Fighter Profile data.
-	 * 3) Display Fighter Picture.
+	 * Activities run when the application first created.
 	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// 1. Init Parse Connection.
 		Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
 		setContentView(R.layout.fighter_profile);
 
-		initTextViewInfo();
-		displayFighterProfile(FIGHTER_ESPN_ID);
+		// 2. Associate TextFields and display info.
+		initFighterViewInfo();
 
-		mFPView = (FighterProfileView) findViewById(R.id.pic);
-		// TODO(yfang): Fix below initialize to display picture from espnId.
-		mFPView.initialize("FIGHTER_ESPN_ID");
+		// 3. Config ImageLoader.
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+				getApplicationContext()).build();
+		mImgLoader = ImageLoader.getInstance();
+		mImgLoader.init(config);
+
+		// 4. Display fighter profile.
+		displayFighterProfile(FIGHTER_ESPN_ID);
 	}
 
 	/**
 	 * Associate all the TextView fields with an object.
 	 */
-	private void initTextViewInfo() {
+	private void initFighterViewInfo() {
 		mNameTextView = (TextView) findViewById(R.id.name);
 		mWinsTextView = (TextView) findViewById(R.id.wins);
 		mWKOTextView = (TextView) findViewById(R.id.wko);
@@ -58,6 +66,7 @@ public class FighterProfileActivity extends Activity {
 		mWDTextView = (TextView) findViewById(R.id.wd);
 		mLossesTextView = (TextView) findViewById(R.id.losses);
 		mTitlesTextView = (TextView) findViewById(R.id.titles);
+		mImgView = (ImageView) findViewById(R.id.fighterPic);
 	}
 
 	@Override
@@ -73,6 +82,7 @@ public class FighterProfileActivity extends Activity {
 	 * @param espnId
 	 */
 	private void displayFighterProfile(int espnId) {
+		String imageUri = "http://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/2335447.png&w=350&h=254";
 		Fighter profile = FighterData.getFighter(espnId);
 		Record rec = profile.getRecord();
 		mNameTextView.setText(profile.getFullName());
@@ -82,6 +92,6 @@ public class FighterProfileActivity extends Activity {
 		mWDTextView.setText(String.valueOf(rec.getDecisionWins()));
 		mLossesTextView.setText(String.valueOf(rec.getLosses()));
 		mTitlesTextView.setText(profile.getTitles());
+		mImgLoader.displayImage(imageUri, mImgView);
 	}
-
 }
