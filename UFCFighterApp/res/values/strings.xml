@@ -10,5 +10,6 @@
     <string name="wd">Decision</string>
     <string name="losses">Losses</string>
     <string name="titles">Titles</string>
+    <string name="fighter_search">Search for a fighter</string>
 
 </resources>
