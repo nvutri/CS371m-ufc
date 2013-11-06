@@ -15,9 +15,9 @@ import com.parse.Parse;
 
 public class FighterProfileActivity extends Activity {
 
-	public static boolean isConnected;
-
-	// is this the route to go?
+	/**
+	 * TextView and ImageView fields.
+	 */
 	private static TextView mNameTextView;
 	private static TextView mWinsTextView;
 	private static TextView mWKOTextView;
@@ -36,46 +36,28 @@ public class FighterProfileActivity extends Activity {
 	private static final int PHOTO_DEFAULT_WIDTH = 250;
 	private static final int PHOTO_DEFAULT_HEIGHT = 181;
 
-	// Hard coded Fighter id for now.
-	private static final int FIGHTER_ESPN_ID = 2335447;
-
-	private static final String PARSE_APPLICATION_ID = "AJ0JAEbsMNs3pRi9poiROGLxopvwD9Y44aXs8rkz";
-	private static final String PARSE_CLIENT_KEY = "ia1k06D9lHgWncELjHm49xsrbREVWUCn7flMc0ic";
-
 	@Override
 	/**
-	 * Activities run when the application first created.
+	 * Activities run when viewing a profile page.
 	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// Set Content View.
 		setContentView(R.layout.fighter_profile);
-		// Detect if network is available.
-		ConnectivityManager cm = (ConnectivityManager) getApplicationContext()
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-		isConnected = activeNetwork != null
-				&& activeNetwork.isConnectedOrConnecting();
-		if (isConnected) {
-			// 1. Init Parse Connection.
-			Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
-
-			// 2. Associate TextFields and display info.
-			initFighterViewInfo();
-
-			// 3. Config ImageLoader.
+		// Associate TextFields and display info.
+		initFighterViewInfo();
+		// Get Fighter ESPN Id.
+		Bundle bundle = getIntent().getExtras();
+		int espnId = bundle.getInt("espnId");
+		if (espnId > 0) {
+			// Config ImageLoader.
 			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 					getApplicationContext()).build();
 			mImgLoader = ImageLoader.getInstance();
 			mImgLoader.init(config);
-
-			// 4. Display fighter profile.
-			displayFighterProfile(FIGHTER_ESPN_ID);
-		} else {
-			// TODO(nvutri): displayNetworkAlert(getApplicationContext());
+			// Display fighter profile.
+			displayFighterProfile(espnId);
 		}
-
 	}
 
 	/**
@@ -108,6 +90,7 @@ public class FighterProfileActivity extends Activity {
 		String imageUri = getPhotoURL(espnId);
 		Fighter profile = FighterData.getFighter(espnId);
 		Record rec = profile.getRecord();
+		mImgLoader.displayImage(imageUri, mImgView);
 		mNameTextView.setText(profile.getFullName());
 		mWinsTextView.setText(String.valueOf(rec.getWins()));
 		mWKOTextView.setText(String.valueOf(rec.getKnockout()));
@@ -115,7 +98,6 @@ public class FighterProfileActivity extends Activity {
 		mWDTextView.setText(String.valueOf(rec.getDecisionWins()));
 		mLossesTextView.setText(String.valueOf(rec.getLosses()));
 		mTitlesTextView.setText(profile.getTitles());
-		mImgLoader.displayImage(imageUri, mImgView);
 	}
 
 	/**
