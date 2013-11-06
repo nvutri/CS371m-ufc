@@ -1,6 +1,9 @@
 package yftvn.ufc;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
@@ -11,6 +14,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.parse.Parse;
 
 public class FighterProfileActivity extends Activity {
+
+	public static boolean isConnected;
 
 	// is this the route to go?
 	private static TextView mNameTextView;
@@ -23,8 +28,13 @@ public class FighterProfileActivity extends Activity {
 	private static ImageView mImgView;
 	private static ImageLoader mImgLoader;
 
-	// Fighter Profile View
-	// TODO (nvutri): move view code into private FighterProfileView mFPView;
+	/**
+	 * The URL Format to get the photo of the fighter based on his espnId. The
+	 * format request 3 integers: espnId, width, height.
+	 */
+	private static final String PHOTO_URL_FORMAT = "http://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/%d.png&w=%d&h=%d";
+	private static final int PHOTO_DEFAULT_WIDTH = 250;
+	private static final int PHOTO_DEFAULT_HEIGHT = 181;
 
 	// Hard coded Fighter id for now.
 	private static final int FIGHTER_ESPN_ID = 2335447;
@@ -38,21 +48,34 @@ public class FighterProfileActivity extends Activity {
 	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// 1. Init Parse Connection.
-		Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
+		// Set Content View.
 		setContentView(R.layout.fighter_profile);
+		// Detect if network is available.
+		ConnectivityManager cm = (ConnectivityManager) getApplicationContext()
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-		// 2. Associate TextFields and display info.
-		initFighterViewInfo();
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		isConnected = activeNetwork != null
+				&& activeNetwork.isConnectedOrConnecting();
+		if (isConnected) {
+			// 1. Init Parse Connection.
+			Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
 
-		// 3. Config ImageLoader.
-		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-				getApplicationContext()).build();
-		mImgLoader = ImageLoader.getInstance();
-		mImgLoader.init(config);
+			// 2. Associate TextFields and display info.
+			initFighterViewInfo();
 
-		// 4. Display fighter profile.
-		displayFighterProfile(FIGHTER_ESPN_ID);
+			// 3. Config ImageLoader.
+			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+					getApplicationContext()).build();
+			mImgLoader = ImageLoader.getInstance();
+			mImgLoader.init(config);
+
+			// 4. Display fighter profile.
+			displayFighterProfile(FIGHTER_ESPN_ID);
+		} else {
+			// TODO(nvutri): displayNetworkAlert(getApplicationContext());
+		}
+
 	}
 
 	/**
@@ -82,7 +105,7 @@ public class FighterProfileActivity extends Activity {
 	 * @param espnId
 	 */
 	private void displayFighterProfile(int espnId) {
-		String imageUri = "http://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/2335447.png&w=350&h=254";
+		String imageUri = getPhotoURL(espnId);
 		Fighter profile = FighterData.getFighter(espnId);
 		Record rec = profile.getRecord();
 		mNameTextView.setText(profile.getFullName());
@@ -94,4 +117,14 @@ public class FighterProfileActivity extends Activity {
 		mTitlesTextView.setText(profile.getTitles());
 		mImgLoader.displayImage(imageUri, mImgView);
 	}
+
+	/**
+	 * @param espnId
+	 * @return String of the correct Photo URL to be displayed.
+	 */
+	private static String getPhotoURL(int espnId) {
+		return String.format(PHOTO_URL_FORMAT, espnId, PHOTO_DEFAULT_WIDTH,
+				PHOTO_DEFAULT_HEIGHT);
+	}
+
 }

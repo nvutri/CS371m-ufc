@@ -64,12 +64,17 @@ public class Fighter {
 	}
 
 	public String getFullName() {
-		return String.format("%s %s", firstName, lastName);
+		String uFirstname = firstName.substring(0, 1).toUpperCase()
+				+ firstName.substring(1);
+		String uLastname = lastName.substring(0, 1).toUpperCase()
+				+ lastName.substring(1);
+		return String.format("%s %s", uFirstname, uLastname);
 	}
+
 	public Record getRecord() {
 		return record;
 	}
-	
+
 	public String getTitles() {
 		// TODO(nvutri): Implement Title class/queries. For now, hard coding.
 		return "Ex-Title Challenger";
