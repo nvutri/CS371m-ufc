@@ -1,7 +1,9 @@
 package yftvn.ufc;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +17,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 public class FighterBasicData {
-	public static ArrayList<Fighter> fighterBasicData;
+	private static ArrayList<Map<String, Integer>> fighterBasicData;
 
 	// Fighter data table.
 	private static final String FIGHTER_DATA_TABLE = "FighterData";
@@ -83,15 +85,46 @@ public class FighterBasicData {
 	 */
 	private static void fillInFighterBasicData(String jsonData)
 			throws JSONException {
-		// Recreate the fighterBasicData ArrayList
-		fighterBasicData = new ArrayList<Fighter>();
+		fighterBasicData = new ArrayList<Map<String, Integer>>();
 		JSONArray arrInfo;
 		arrInfo = new JSONArray(jsonData);
 		for (int index = 0; index < arrInfo.length(); ++index) {
 			JSONArray row = arrInfo.getJSONArray(index);
-			fighterBasicData.add(new Fighter(row.getInt(0), row.getString(1),
-					row.getString(2)));
+			/**
+			 * row: espnId, firstName, lastName.
+			 */
+			fighterBasicData.add(createFighterMap(row.getInt(0),
+					row.getString(1), row.getString(2)));
 		}
 	}
 
+	/**
+	 * Create a Fighter Map: Fullname -> espnId.
+	 * 
+	 * @param espnId
+	 * @param firstName
+	 * @param lastName
+	 * @return Map<Fullname, espnId>
+	 */
+	private static Map<String, Integer> createFighterMap(int espnId,
+			String firstName, String lastName) {
+		// Uppercase firstName.
+		firstName = firstName.substring(0, 1).toUpperCase()
+				+ firstName.substring(1);
+		lastName = lastName.substring(0, 1).toUpperCase()
+				+ lastName.substring(1);
+		String fullName = String.format("%s %s", firstName, lastName);
+		Map<String, Integer> info = new HashMap<String, Integer>();
+		info.put(fullName, espnId);
+		return info;
+	}
+
+	/**
+	 * Get the basic data in a ArrayList of mapping.
+	 * 
+	 * @return ArrayList<Map<String, Integer>> of Fighter basic info.
+	 */
+	public static ArrayList<Map<String, Integer>> getBasicData() {
+		return fighterBasicData;
+	}
 }
