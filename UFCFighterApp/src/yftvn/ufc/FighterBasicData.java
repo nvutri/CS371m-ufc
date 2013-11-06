@@ -27,20 +27,16 @@ public class FighterBasicData {
 	private static final int BUFFER_SIZE = 1000;
 
 	/**
-	 * @return True if the fighterBasicData is ready. False otherwise.
-	 */
-	public static boolean isReady() {
-		return !fighterBasicData.isEmpty();
-	}
-
-	/**
-	 * Initialize/Cache basic fighter data: espnId, first name, last name.
+	 * Initialize/Cache basic fighter data: espnId, first name, last name. The
+	 * data is in a file loading from Parse.
 	 */
 	public static void initialize() {
-		// Query the basicInfo file form Parse.
+		// Parse Query.
 		ParseQuery<ParseObject> query = ParseQuery.getQuery(FIGHTER_DATA_TABLE);
 		query.whereEqualTo(FIGHTER_DATA_TABLE_NAME, BASIC_INFO_NAME);
 		ParseObject fighterParse = new ParseObject(FIGHTER_DATA_TABLE);
+		// Fighter Basic Data.
+		fighterBasicData = new ArrayList<Map<String, Integer>>();
 		try {
 			List<ParseObject> fighterList = query.find();
 			assert 1 == fighterList.size();
@@ -66,16 +62,12 @@ public class FighterBasicData {
 
 		// Convert the Json files into an ArrayList<Fighter>.
 		assert basicInfo != null;
-		basicInfo.getDataInBackground(new GetDataCallback() {
-			public void done(byte[] data, ParseException e) {
-				assert e == null;
-				try {
-					fillInFighterBasicData(new String(data));
-				} catch (JSONException jsonE) {
-					jsonE.printStackTrace();
-				}
-			}
-		});
+		try {
+			data = basicInfo.getData();
+			fillInFighterBasicData(new String(data));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -83,19 +75,22 @@ public class FighterBasicData {
 	 * 
 	 * @param jsonData
 	 */
-	private static void fillInFighterBasicData(String jsonData)
-			throws JSONException {
-		fighterBasicData = new ArrayList<Map<String, Integer>>();
+	private static void fillInFighterBasicData(String jsonData) {
 		JSONArray arrInfo;
-		arrInfo = new JSONArray(jsonData);
-		for (int index = 0; index < arrInfo.length(); ++index) {
-			JSONArray row = arrInfo.getJSONArray(index);
-			/**
-			 * row: espnId, firstName, lastName.
-			 */
-			fighterBasicData.add(createFighterMap(row.getInt(0),
-					row.getString(1), row.getString(2)));
+		try {
+			arrInfo = new JSONArray(jsonData);
+			for (int index = 0; index < arrInfo.length(); ++index) {
+				JSONArray row = arrInfo.getJSONArray(index);
+				/**
+				 * row: espnId, firstName, lastName.
+				 */
+				fighterBasicData.add(createFighterMap(row.getInt(0),
+						row.getString(1), row.getString(2)));
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
+
 	}
 
 	/**
