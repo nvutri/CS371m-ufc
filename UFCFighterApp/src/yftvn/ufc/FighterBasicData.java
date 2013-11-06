@@ -4,20 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.util.Log;
 
-import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 public class FighterBasicData {
-	private static ArrayList<Map<String, Integer>> fighterBasicData;
+	private static ArrayList<Integer> fighterEspnId;
+	private static ArrayList<String> fighterNames;
 
 	// Fighter data table.
 	private static final String FIGHTER_DATA_TABLE = "FighterData";
@@ -36,7 +37,8 @@ public class FighterBasicData {
 		query.whereEqualTo(FIGHTER_DATA_TABLE_NAME, BASIC_INFO_NAME);
 		ParseObject fighterParse = new ParseObject(FIGHTER_DATA_TABLE);
 		// Fighter Basic Data.
-		fighterBasicData = new ArrayList<Map<String, Integer>>();
+		fighterEspnId = new ArrayList<Integer>();
+		fighterNames = new ArrayList<String>();
 		try {
 			List<ParseObject> fighterList = query.find();
 			assert 1 == fighterList.size();
@@ -46,6 +48,28 @@ public class FighterBasicData {
 		} catch (ParseException e) {
 			Log.d("Error Parse:", e.toString());
 		}
+	}
+
+	/**
+	 * Get the basic data in a ArrayList of mapping.
+	 * 
+	 * @return ArrayList<Integer> of Fighter espnId.
+	 */
+	public static ArrayList<Integer> getEspnId() {
+		return fighterEspnId;
+	}
+
+	/**
+	 * Get the list of names to be fed into the listview.
+	 * 
+	 * @return String[]
+	 */
+	public static String[] getFighterNames() {
+		String[] names = new String[fighterNames.size()];
+		for (int i = 0; i < fighterNames.size(); ++i) {
+			names[i] = fighterNames.get(i);
+		}
+		return names;
 	}
 
 	/**
@@ -84,42 +108,27 @@ public class FighterBasicData {
 				/**
 				 * row: espnId, firstName, lastName.
 				 */
-				fighterBasicData.add(createFighterMap(row.getInt(0),
-						row.getString(1), row.getString(2)));
+				fighterEspnId.add(row.getInt(0));
+				fighterNames
+						.add(getFullName(row.getString(1), row.getString(2)));
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
-	 * Create a Fighter Map: Fullname -> espnId.
+	 * Get the uppercase full name.
 	 * 
-	 * @param espnId
 	 * @param firstName
 	 * @param lastName
-	 * @return Map<Fullname, espnId>
+	 * @return
 	 */
-	private static Map<String, Integer> createFighterMap(int espnId,
-			String firstName, String lastName) {
-		// Uppercase firstName.
+	private static String getFullName(String firstName, String lastName) {
 		firstName = firstName.substring(0, 1).toUpperCase()
 				+ firstName.substring(1);
 		lastName = lastName.substring(0, 1).toUpperCase()
 				+ lastName.substring(1);
-		String fullName = String.format("%s %s", firstName, lastName);
-		Map<String, Integer> info = new HashMap<String, Integer>();
-		info.put(fullName, espnId);
-		return info;
-	}
-
-	/**
-	 * Get the basic data in a ArrayList of mapping.
-	 * 
-	 * @return ArrayList<Map<String, Integer>> of Fighter basic info.
-	 */
-	public static ArrayList<Map<String, Integer>> getBasicData() {
-		return fighterBasicData;
+		return String.format("%s %s", firstName, lastName);
 	}
 }
