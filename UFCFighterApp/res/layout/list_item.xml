@@ -3,15 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-     
+
     <!-- Single ListItem -->
-     
+
+
     <!-- Product Name -->
-    <TextView android:id="@+id/fighter_name"
+
+    <TextView
+        android:id="@+id/fighter_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dip"
-        android:textSize="16dip"
-        android:textStyle="bold"/>    
- 
+        android:textSize="@dimen/listview_text_size"
+        android:textStyle="bold" />
+
 </LinearLayout>

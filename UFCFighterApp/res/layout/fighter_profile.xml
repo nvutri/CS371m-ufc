@@ -9,8 +9,8 @@
         android:id="@+id/fighterPic"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_below="@+id/name"
         android:layout_marginTop="5dp"
+        android:contentDescription="@string/fighter_picture_description"
         android:gravity="center_horizontal" />
 
     <RelativeLayout
@@ -21,10 +21,10 @@
             android:id="@+id/name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/profile_text_size"
             android:gravity="center_horizontal"
             android:text="@string/name"
-            android:textSize="20dp" />
+            android:textSize="@dimen/profile_text_size" />
 
         <TextView
             android:id="@+id/wins_label"
@@ -36,7 +36,7 @@
             android:gravity="center_horizontal"
             android:paddingLeft="10dp"
             android:text="@string/wins"
-            android:textSize="20dp"
+            android:textSize="@dimen/profile_text_size"
             android:textStyle="bold" />
 
         <TextView
@@ -47,8 +47,8 @@
             android:layout_alignParentRight="true"
             android:gravity="right"
             android:paddingRight="20dp"
-            android:text="0"
-            android:textSize="20dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_text_size"
             android:textStyle="bold" />
 
         <TextView
@@ -61,7 +61,7 @@
             android:gravity="center_horizontal"
             android:paddingLeft="10dp"
             android:text="@string/wko"
-            android:textSize="15dp" />
+            android:textSize="@dimen/profile_subtext_size" />
 
         <TextView
             android:id="@+id/wko"
@@ -72,8 +72,8 @@
             android:layout_alignParentRight="true"
             android:gravity="right"
             android:paddingRight="20dp"
-            android:text="0"
-            android:textSize="15dp" />
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_subtext_size" />
 
         <TextView
             android:id="@+id/wsub_label"
@@ -85,7 +85,7 @@
             android:gravity="center_horizontal"
             android:paddingLeft="10dp"
             android:text="@string/wsub"
-            android:textSize="15dp" />
+            android:textSize="@dimen/profile_subtext_size" />
 
         <TextView
             android:id="@+id/wsub"
@@ -96,8 +96,8 @@
             android:layout_alignParentRight="true"
             android:gravity="right"
             android:paddingRight="20dp"
-            android:text="0"
-            android:textSize="15dp" />
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_subtext_size" />
 
         <TextView
             android:id="@+id/wd_label"
@@ -109,7 +109,7 @@
             android:gravity="center_horizontal"
             android:paddingLeft="10dp"
             android:text="@string/wd"
-            android:textSize="15dp" />
+            android:textSize="@dimen/profile_subtext_size" />
 
         <TextView
             android:id="@+id/wd"
@@ -120,8 +120,8 @@
             android:layout_alignParentRight="true"
             android:gravity="right"
             android:paddingRight="20dp"
-            android:text="0"
-            android:textSize="15dp" />
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_subtext_size" />
 
         <TextView
             android:id="@+id/losses_label"
@@ -133,7 +133,7 @@
             android:gravity="center_horizontal"
             android:paddingLeft="10dp"
             android:text="@string/losses"
-            android:textSize="20dp"
+            android:textSize="@dimen/profile_text_size"
             android:textStyle="bold" />
 
         <TextView
@@ -145,8 +145,8 @@
             android:layout_alignParentRight="true"
             android:gravity="right"
             android:paddingRight="20dp"
-            android:text="0"
-            android:textSize="20dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_text_size"
             android:textStyle="bold" />
 
         <TextView
@@ -159,7 +159,7 @@
             android:gravity="center_horizontal"
             android:paddingLeft="10dp"
             android:text="@string/titles"
-            android:textSize="20dp"
+            android:textSize="@dimen/profile_text_size"
             android:textStyle="bold" />
 
         <TextView
@@ -171,8 +171,8 @@
             android:layout_alignParentRight="true"
             android:gravity="right"
             android:paddingRight="20dp"
-            android:text="0"
-            android:textSize="20dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_text_size"
             android:textStyle="bold" />
     </RelativeLayout>
 
