@@ -14,7 +14,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class ComparisonProfileActivity extends Activity {
-	
+
 	// A tag for the cat log
 	private static final String TAG = "UFC Fighter App";
 
@@ -38,11 +38,11 @@ public class ComparisonProfileActivity extends Activity {
 	private static final String PHOTO_URL_FORMAT = "http://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/%d.png&w=%d&h=%d";
 	private static final int PHOTO_DEFAULT_WIDTH = 250;
 	private static final int PHOTO_DEFAULT_HEIGHT = 181;
-	
+
 	/**
-	 * The ESPN ID for the fighter this profile will display.
-	 * This value will also be sent to comparison search so the comparison search
-	 * can display a mini profile for the same fighter.
+	 * The ESPN ID for the fighter this profile will display. This value will
+	 * also be sent to comparison search so the comparison search can display a
+	 * mini profile for the same fighter.
 	 */
 	private int espnId1, espnId2;
 
@@ -55,28 +55,29 @@ public class ComparisonProfileActivity extends Activity {
 		// Set Content View.
 		setContentView(R.layout.comparison_profile);
 		// Associate TextFields and display info.
-		initFighterViewInfo();
+		initFighterViewInfo1();
+		initFighterViewInfo2();
 		// Get Fighter ESPN Id.
 		Bundle bundle = getIntent().getExtras();
-		
+
 		Log.d(TAG, "We have entered ComparisonProfileActivity");
-		Log.d(TAG, "espn ID 1: "+bundle.getInt("espnId1"));
-		Log.d(TAG, "espn ID 2: "+bundle.getInt("espnId2"));
-		
+		Log.d(TAG, "espn ID 1: " + bundle.getInt("espnId1"));
+		Log.d(TAG, "espn ID 2: " + bundle.getInt("espnId2"));
+
 		espnId1 = bundle.getInt("espnId1");
 		espnId2 = bundle.getInt("espnId2");
-		
+
 		// Config ImageLoader.
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				getApplicationContext()).build();
-		
+
 		if (espnId1 > 0) {
 			mImgLoader1 = ImageLoader.getInstance();
 			mImgLoader1.init(config);
 			// Display fighter profile.
 			displayFighterProfile1(espnId1);
 		}
-		
+
 		if (espnId2 > 0) {
 			mImgLoader2 = ImageLoader.getInstance();
 			mImgLoader2.init(config);
@@ -86,50 +87,61 @@ public class ComparisonProfileActivity extends Activity {
 	}
 
 	/**
-	 * Associate all the TextView fields with an object.
+	 * Associate all the TextView fields with an object. Duplicate due to
+	 * laziness to create a class.
 	 */
-	private void initFighterViewInfo() {
-		mNameTextView = (TextView) findViewById(R.id.name);
-		mWinsTextView = (TextView) findViewById(R.id.wins);
-		mWKOTextView = (TextView) findViewById(R.id.wko);
-		mWSubTextView = (TextView) findViewById(R.id.wsub);
-		mWDTextView = (TextView) findViewById(R.id.wd);
-		mLossesTextView = (TextView) findViewById(R.id.losses);
-		mTitlesTextView = (TextView) findViewById(R.id.titles);
+	private void initFighterViewInfo1() {
+		mNameTextView1 = (TextView) findViewById(R.id.name1);
+		mWinsTextView1 = (TextView) findViewById(R.id.wins1);
+		mWKOTextView1 = (TextView) findViewById(R.id.wko1);
+		mWSubTextView1 = (TextView) findViewById(R.id.wsub1);
+		mWDTextView1 = (TextView) findViewById(R.id.wd1);
+		mLossesTextView1 = (TextView) findViewById(R.id.losses1);
+		mTitlesTextView1 = (TextView) findViewById(R.id.titles1);
 		mImgView1 = (ImageView) findViewById(R.id.fighterPic1);
+	}
+
+	private void initFighterViewInfo2() {
+		mNameTextView2 = (TextView) findViewById(R.id.name2);
+		mWinsTextView2 = (TextView) findViewById(R.id.wins2);
+		mWKOTextView2 = (TextView) findViewById(R.id.wko2);
+		mWSubTextView2 = (TextView) findViewById(R.id.wsub2);
+		mWDTextView2 = (TextView) findViewById(R.id.wd2);
+		mLossesTextView2 = (TextView) findViewById(R.id.losses2);
+		mTitlesTextView2 = (TextView) findViewById(R.id.titles2);
 		mImgView2 = (ImageView) findViewById(R.id.fighterPic2);
 	}
 
-	@Override 
-	public boolean onCreateOptionsMenu(Menu menu) 
-	{ 
-		super.onCreateOptionsMenu(menu); 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
 
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.fighter_profile, menu);
 		return true;
 
 	}
-	
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{
+	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
-		
-		switch (item.getItemId()) 
-		{
-			case R.id.comparison_search:
-				Intent intent = new Intent(ComparisonProfileActivity.this,
-						ComparisonSearchActivity.class);
-				intent.putExtra("espnId", espnId1);
-				startActivity(intent);
-				return true;
+
+		switch (item.getItemId()) {
+		case R.id.comparison_search:
+			Intent intent = new Intent(ComparisonProfileActivity.this,
+					ComparisonSearchActivity.class);
+			intent.putExtra("espnId", espnId1);
+			startActivity(intent);
+			return true;
 		}
 		return false;
 	}
 
 	/**
-	 * Display a Fighter Profile page given his espnId.
+	 * Display a Fighter Profile page given his espnId. Yes, I know this code is
+	 * essentially duplicated. We are running out of time, and Yu-Chieh Fang was
+	 * sick for a week. We'll make the code a lot cleaner, and less
+	 * "duplicative" in the next release. We're very sorry!
 	 * 
 	 * @param espnId
 	 */
@@ -138,35 +150,27 @@ public class ComparisonProfileActivity extends Activity {
 		Fighter profile = FighterData.getFighter(espnId);
 		Record rec = profile.getRecord();
 		mImgLoader1.displayImage(imageUri, mImgView1);
-		mNameTextView.setText(profile.getFullName());
-		mWinsTextView.setText(String.valueOf(rec.getWins()));
-		mWKOTextView.setText(String.valueOf(rec.getKnockout()));
-		mWSubTextView.setText(String.valueOf(rec.getSubmission()));
-		mWDTextView.setText(String.valueOf(rec.getDecisionWins()));
-		mLossesTextView.setText(String.valueOf(rec.getLosses()));
-		mTitlesTextView.setText(profile.getTitles());
+		mNameTextView1.setText(profile.getFullName());
+		mWinsTextView1.setText(String.valueOf(rec.getWins()));
+		mWKOTextView1.setText(String.valueOf(rec.getKnockout()));
+		mWSubTextView1.setText(String.valueOf(rec.getSubmission()));
+		mWDTextView1.setText(String.valueOf(rec.getDecisionWins()));
+		mLossesTextView1.setText(String.valueOf(rec.getLosses()));
+		mTitlesTextView1.setText(profile.getTitles());
 	}
-	
-	/**
-	 * Display a Fighter Profile page given his espnId.
-	 * Yes, I know this code is essentially duplicated. We are running out of time,
-	 * and Yu-Chieh Fang was sick for a week. We'll make the code a lot cleaner, 
-	 * and less "duplicative" in the next release. We're very sorry!
-	 * 
-	 * @param espnId
-	 */
+
 	private void displayFighterProfile2(int espnId) {
 		String imageUri = getPhotoURL(espnId);
 		Fighter profile = FighterData.getFighter(espnId);
 		Record rec = profile.getRecord();
 		mImgLoader2.displayImage(imageUri, mImgView2);
-		mNameTextView.setText(profile.getFullName());
-		mWinsTextView.setText(String.valueOf(rec.getWins()));
-		mWKOTextView.setText(String.valueOf(rec.getKnockout()));
-		mWSubTextView.setText(String.valueOf(rec.getSubmission()));
-		mWDTextView.setText(String.valueOf(rec.getDecisionWins()));
-		mLossesTextView.setText(String.valueOf(rec.getLosses()));
-		mTitlesTextView.setText(profile.getTitles());
+		mNameTextView2.setText(profile.getFullName());
+		mWinsTextView2.setText(String.valueOf(rec.getWins()));
+		mWKOTextView2.setText(String.valueOf(rec.getKnockout()));
+		mWSubTextView2.setText(String.valueOf(rec.getSubmission()));
+		mWDTextView2.setText(String.valueOf(rec.getDecisionWins()));
+		mLossesTextView2.setText(String.valueOf(rec.getLosses()));
+		mTitlesTextView2.setText(profile.getTitles());
 	}
 
 	/**
