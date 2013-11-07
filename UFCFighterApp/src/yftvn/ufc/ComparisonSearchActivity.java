@@ -56,6 +56,14 @@ public class ComparisonSearchActivity extends Activity {
 
 	// User input to be searched with
 	EditText inputSearch;
+	
+	/**
+	 * These are the 2 fighter espn ID's we are concerned with.
+	 * The first one is for the profile we are displaying on the left, from the profile activity
+	 * The second one is for the user selection to compare to.
+	 * Both espn IDs will be sent to the ComparisonProfileActivity
+	 */
+	private int espnId1, espnId2;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -74,15 +82,15 @@ public class ComparisonSearchActivity extends Activity {
 		initFighterViewInfo();
 		
 		Bundle bundle = getIntent().getExtras();
-		int espnId = bundle.getInt("espnId");
-		if (espnId > 0) {
+		espnId1 = bundle.getInt("espnId");
+		if (espnId1 > 0) {
 			// Config ImageLoader.
 			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 					getApplicationContext()).build();
 			mImgLoader = ImageLoader.getInstance();
 			mImgLoader.init(config);
 			// Display fighter profile.
-			displayFighterProfile(espnId);
+			displayFighterProfile();
 		}
 	}
 	
@@ -105,9 +113,9 @@ public class ComparisonSearchActivity extends Activity {
 	 * 
 	 * @param espnId
 	 */
-	private void displayFighterProfile(int espnId) {
-		String imageUri = getPhotoURL(espnId);
-		Fighter profile = FighterData.getFighter(espnId);
+	private void displayFighterProfile() {
+		String imageUri = getPhotoURL(espnId1);
+		Fighter profile = FighterData.getFighter(espnId1);
 		Record rec = profile.getRecord();
 		mImgLoader.displayImage(imageUri, mImgView);
 		mNameTextView.setText(profile.getFullName());
@@ -145,10 +153,11 @@ public class ComparisonSearchActivity extends Activity {
 				TextView clickedView = (TextView) view
 						.findViewById(R.id.fighter_name);
 				String fighterName = clickedView.getText().toString();
-				int espnId = fighterEspnId.get(fighterName);
+				espnId2 = fighterEspnId.get(fighterName);
 				Intent intent = new Intent(ComparisonSearchActivity.this,
-						FighterProfileActivity.class);
-				intent.putExtra("espnId", espnId);
+						ComparisonProfileActivity.class);
+				intent.putExtra("espnId1", espnId1);
+				intent.putExtra("espnId2", espnId2);
 				startActivity(intent);
 			}
 		});

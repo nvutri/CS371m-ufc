@@ -34,6 +34,9 @@
             android:name="yftvn.ufc.ComparisonSearchActivity"
             android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="yftvn.ufc.ComparisonProfileActivity"
+            android:theme="@android:style/Theme.Holo" />
     </application>
 
 </manifest>
