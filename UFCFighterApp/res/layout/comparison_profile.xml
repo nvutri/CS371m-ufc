@@ -64,6 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/wko_label"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
             android:gravity="left"
             android:paddingLeft="10dp"
             android:text="@string/fighter_default_stats"
@@ -74,16 +76,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/name1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
             android:paddingLeft="10dp"
             android:text="@string/wins"
             android:textSize="@dimen/profile_text_size"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/wins"
+            android:id="@+id/wins2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/wko_label"
@@ -91,9 +92,20 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:text="@string/fighter_default_stats"
-            android:textSize="@dimen/profile_text_size"
-            android:textStyle="bold" />
+            android:textSize="@dimen/profile_text_size" />
 
+        <TextView
+            android:id="@+id/wko1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/wko_label"
+            android:layout_alignBottom="@+id/wko_label"
+            android:layout_alignParentLeft="true"
+            android:gravity="left"
+            android:paddingLeft="10dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_subtext_size" />
+        
         <TextView
             android:id="@+id/wko_label"
             android:layout_width="wrap_content"
@@ -104,10 +116,11 @@
             android:gravity="center_horizontal"
             android:paddingLeft="10dp"
             android:text="@string/wko"
-            android:textSize="@dimen/profile_subtext_size" />
+            android:textSize="@dimen/profile_subtext_size"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/wko"
+            android:id="@+id/wko2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/wko_label"
@@ -119,6 +132,18 @@
             android:textSize="@dimen/profile_subtext_size" />
 
         <TextView
+            android:id="@+id/wsub1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/wsub_label"
+            android:layout_alignBottom="@+id/wsub_label"
+            android:layout_alignParentLeft="true"
+            android:gravity="left"
+            android:paddingLeft="10dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_subtext_size" />
+        
+        <TextView
             android:id="@+id/wsub_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -128,10 +153,11 @@
             android:gravity="center_horizontal"
             android:paddingLeft="10dp"
             android:text="@string/wsub"
-            android:textSize="@dimen/profile_subtext_size" />
+            android:textSize="@dimen/profile_subtext_size"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/wsub"
+            android:id="@+id/wsub2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/wsub_label"
@@ -143,6 +169,18 @@
             android:textSize="@dimen/profile_subtext_size" />
 
         <TextView
+            android:id="@+id/wd1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/wd_label"
+            android:layout_alignBottom="@+id/wd_label"
+            android:layout_alignParentLeft="true"
+            android:gravity="left"
+            android:paddingLeft="10dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_subtext_size" />
+        
+        <TextView
             android:id="@+id/wd_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -152,10 +190,11 @@
             android:gravity="center_horizontal"
             android:paddingLeft="10dp"
             android:text="@string/wd"
-            android:textSize="@dimen/profile_subtext_size" />
+            android:textSize="@dimen/profile_subtext_size"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/wd"
+            android:id="@+id/wd2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/wd_label"
@@ -166,6 +205,18 @@
             android:text="@string/fighter_default_stats"
             android:textSize="@dimen/profile_subtext_size" />
 
+        <TextView
+            android:id="@+id/losses1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/losses_label"
+            android:layout_alignBottom="@+id/losses_label"
+            android:layout_alignParentLeft="true"
+            android:gravity="left"
+            android:paddingLeft="10dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_text_size" />
+        
         <TextView
             android:id="@+id/losses_label"
             android:layout_width="wrap_content"
@@ -180,7 +231,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/losses"
+            android:id="@+id/losses2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/losses_label"
@@ -189,9 +240,20 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:text="@string/fighter_default_stats"
-            android:textSize="@dimen/profile_text_size"
-            android:textStyle="bold" />
+            android:textSize="@dimen/profile_text_size" />
 
+        <TextView
+            android:id="@+id/titles1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/titles_label"
+            android:layout_alignBottom="@+id/titles_label"
+            android:layout_alignParentLeft="true"
+            android:gravity="left"
+            android:paddingLeft="10dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_text_size" />
+        
         <TextView
             android:id="@+id/titles_label"
             android:layout_width="wrap_content"
@@ -206,7 +268,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/titles"
+            android:id="@+id/titles2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/titles_label"
@@ -215,8 +277,7 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:text="@string/fighter_default_stats"
-            android:textSize="@dimen/profile_text_size"
-            android:textStyle="bold" />
+            android:textSize="@dimen/profile_text_size" />
     </RelativeLayout>
 
 </LinearLayout>
