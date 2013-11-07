@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="10"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="yftvn.ufc.FighterSearchActivity"
-            android:theme="@android:style/Theme.Black"
+            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,10 +29,10 @@
         </activity>
         <activity
             android:name="yftvn.ufc.FighterProfileActivity"
-            android:theme="@android:style/Theme.Black" />
+            android:theme="@android:style/Theme.Holo" />
         <activity
             android:name="yftvn.ufc.ComparisonSearchActivity"
-            android:theme="@android:style/Theme.Black"
+            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" />
     </application>
 
