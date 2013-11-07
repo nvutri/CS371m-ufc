@@ -17,7 +17,9 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 public class FighterBasicData {
-	private static ArrayList<Integer> fighterEspnId;
+	// HashMap from Figher's Name to ESPN id.
+	private static HashMap<String, Integer> fighterEspnId;
+	// ArrayList of Fighter's Name.
 	private static ArrayList<String> fighterNames;
 
 	// Fighter data table.
@@ -37,7 +39,7 @@ public class FighterBasicData {
 		query.whereEqualTo(FIGHTER_DATA_TABLE_NAME, BASIC_INFO_NAME);
 		ParseObject fighterParse = new ParseObject(FIGHTER_DATA_TABLE);
 		// Fighter Basic Data.
-		fighterEspnId = new ArrayList<Integer>();
+		fighterEspnId = new HashMap<String, Integer>();
 		fighterNames = new ArrayList<String>();
 		try {
 			List<ParseObject> fighterList = query.find();
@@ -55,7 +57,7 @@ public class FighterBasicData {
 	 * 
 	 * @return ArrayList<Integer> of Fighter espnId.
 	 */
-	public static ArrayList<Integer> getEspnId() {
+	public static HashMap<String, Integer> getEspnId() {
 		return fighterEspnId;
 	}
 
@@ -108,9 +110,11 @@ public class FighterBasicData {
 				/**
 				 * row: espnId, firstName, lastName.
 				 */
-				fighterEspnId.add(row.getInt(0));
-				fighterNames
-						.add(getFullName(row.getString(1), row.getString(2)));
+				String fullname = getFullName(row.getString(1),
+						row.getString(2));
+				Integer espnId = row.getInt(0);
+				fighterEspnId.put(fullname, espnId);
+				fighterNames.add(fullname);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
