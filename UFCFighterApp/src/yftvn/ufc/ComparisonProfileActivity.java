@@ -21,13 +21,13 @@ public class ComparisonProfileActivity extends Activity {
 	/**
 	 * TextView and ImageView fields.
 	 */
-	private static TextView mNameTextView;
-	private static TextView mWinsTextView;
-	private static TextView mWKOTextView;
-	private static TextView mWSubTextView;
-	private static TextView mWDTextView;
-	private static TextView mLossesTextView;
-	private static TextView mTitlesTextView;
+	private static TextView mNameTextView1, mNameTextView2;
+	private static TextView mWinsTextView1, mWinsTextView2;
+	private static TextView mWKOTextView1, mWKOTextView2;
+	private static TextView mWSubTextView1, mWSubTextView2;
+	private static TextView mWDTextView1, mWDTextView2;
+	private static TextView mLossesTextView1, mLossesTextView2;
+	private static TextView mTitlesTextView1, mTitlesTextView2;
 	private static ImageView mImgView1, mImgView2;
 	private static ImageLoader mImgLoader1, mImgLoader2;
 

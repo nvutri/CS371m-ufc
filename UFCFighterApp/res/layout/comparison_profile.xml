@@ -7,20 +7,20 @@
     
    <RelativeLayout 
 	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
+	    android:layout_height="0dp"
 	    android:layout_weight="1" >
 	        
 	    <ImageView
 	        android:id="@+id/fighterPic1"
 	        android:layout_width="150dp"
-	        android:layout_height="150dp"
+	        android:layout_height="100dp"
 	        android:layout_marginTop="5dp"
 	        android:contentDescription="@string/fighter_picture_description"
 	        android:gravity="center_horizontal" />    
 	    <ImageView
 	        android:id="@+id/fighterPic2"
 	        android:layout_width="150dp"
-	        android:layout_height="150dp"
+	        android:layout_height="100dp"
 	        android:layout_marginTop="5dp"
 	        android:contentDescription="@string/fighter_picture_description"
 	        android:gravity="center_horizontal"
@@ -32,22 +32,48 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_weight="2" >
 
         <TextView
-            android:id="@+id/name"
-            android:layout_width="fill_parent"
+            android:id="@+id/name1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/profile_text_size"
             android:gravity="center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:paddingLeft="10dp"
             android:text="@string/name"
-            android:textSize="@dimen/profile_text_size" />
+            android:textSize="@dimen/profile_text_size"
+            android:textStyle="bold" />
+        
+        <TextView
+            android:id="@+id/name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:paddingRight="20dp"
+            android:text="@string/name"
+            android:textSize="@dimen/profile_text_size"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true" />
 
+        <TextView
+            android:id="@+id/wins1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/wko_label"
+            android:layout_alignParentLeft="true"
+            android:gravity="left"
+            android:paddingLeft="10dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_text_size" />
+        
         <TextView
             android:id="@+id/wins_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/name"
+            android:layout_below="@+id/name1"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
