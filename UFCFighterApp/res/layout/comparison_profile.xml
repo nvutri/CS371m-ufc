@@ -242,42 +242,7 @@
             android:text="@string/fighter_default_stats"
             android:textSize="@dimen/profile_text_size" />
 
-        <TextView
-            android:id="@+id/titles1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/titles_label"
-            android:layout_alignBottom="@+id/titles_label"
-            android:layout_alignParentLeft="true"
-            android:gravity="left"
-            android:paddingLeft="10dp"
-            android:text="@string/fighter_default_stats"
-            android:textSize="@dimen/profile_text_size" />
-        
-        <TextView
-            android:id="@+id/titles_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/losses_label"
-            android:layout_below="@+id/losses_label"
-            android:layout_marginTop="14dp"
-            android:gravity="center_horizontal"
-            android:paddingLeft="10dp"
-            android:text="@string/titles"
-            android:textSize="@dimen/profile_text_size"
-            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/titles2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/titles_label"
-            android:layout_alignBottom="@+id/titles_label"
-            android:layout_alignParentRight="true"
-            android:gravity="right"
-            android:paddingRight="20dp"
-            android:text="@string/fighter_default_stats"
-            android:textSize="@dimen/profile_text_size" />
     </RelativeLayout>
 
 </LinearLayout>
