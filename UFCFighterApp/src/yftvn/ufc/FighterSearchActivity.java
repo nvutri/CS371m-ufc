@@ -3,6 +3,7 @@ package yftvn.ufc;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -29,7 +30,7 @@ public class FighterSearchActivity extends Activity {
 
 	private static HashMap<String, Integer> fighterEspnId;
 	private static String[] fighterNames;
-	private static ArrayAdapter<String> listAdapter;
+	private ArrayAdapter<String> listAdapter;
 
 	private static final String PARSE_APPLICATION_ID = "AJ0JAEbsMNs3pRi9poiROGLxopvwD9Y44aXs8rkz";
 	private static final String PARSE_CLIENT_KEY = "ia1k06D9lHgWncELjHm49xsrbREVWUCn7flMc0ic";
@@ -58,7 +59,7 @@ public class FighterSearchActivity extends Activity {
 			// Display the list of fighters.
 			displayListView();
 		} else {
-			// TODO(nvutri): displayNetworkAlert(getApplicationContext());
+			displayNetworkAlert(this);
 		}
 
 	}
@@ -115,5 +116,17 @@ public class FighterSearchActivity extends Activity {
 
 		// we register for the contextmneu
 		registerForContextMenu(lv);
+	}
+
+	/**
+	 * Display No network activity alert.
+	 */
+	private void displayNetworkAlert(Context context) {
+		AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+		alertDialog.setTitle("No Network Activity");
+		alertDialog
+				.setMessage("This app requires network activity to work properly");
+		alertDialog.setIcon(R.drawable.ic_launcher);
+		alertDialog.show();
 	}
 }
