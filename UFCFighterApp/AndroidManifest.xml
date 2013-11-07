@@ -27,11 +27,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="yftvn.ufc.FighterProfileActivity" />
+        <activity
+            android:name="yftvn.ufc.FighterProfileActivity"
+            android:theme="@android:style/Theme.Black" />
         <activity
             android:name="yftvn.ufc.ComparisonSearchActivity"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+            android:theme="@android:style/Theme.Black"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>
