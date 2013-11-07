@@ -9,8 +9,9 @@ I. Team Members:
 
 II. General Information.
 1) This app is to display/compare UFC MMA Fighters/Events.
-2) Network Activity is required to run this app properly, because it relies on remote database in Parse cloud.
-3) The Parse database is populated using a separate Scraper to fetch information from espn.go.com/mma/ and push to the cloud.
+2) This project contains 2 sub-projects: FighterProfileActivity (the Android app), and UFC-Fighters (Backend Scrapers scripts to populate the database).
+3) Network Activity is required to run this app properly, because it relies on remote database in Parse cloud.
+4) The Parse database is populated using a separate Scraper to fetch information from espn.go.com/mma/ and push to the cloud.
 
 II. Instruction.
 1) The first Activity is a list of UFC fighters. Users can select one of the fighters to display his profile.
