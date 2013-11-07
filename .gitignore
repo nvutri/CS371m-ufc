@@ -9,6 +9,8 @@
 *.dex
 # Java class files
 *.class
+# Drawable files
+drawable*/
 # generated files
 bin/
 gen/
