@@ -2,19 +2,206 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
-     
-    <!-- Editext for Search -->
-    <EditText android:id="@+id/inputSearch"
+    android:orientation="horizontal" >
+    
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:layout_weight="1" >
+
+    <ImageView
+        android:id="@+id/fighterPic"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="5dp"
+        android:contentDescription="@string/fighter_picture_description"
+        android:gravity="center_horizontal" />
+
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Search fighter"
-        android:inputType="textVisiblePassword"/>
-  
-    <!-- List View -->
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-  
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/profile_text_size"
+            android:gravity="center_horizontal"
+            android:text="@string/name"
+            android:textSize="@dimen/profile_text_size" />
+
+        <TextView
+            android:id="@+id/wins_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:text="@string/wins"
+            android:textSize="@dimen/profile_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/wins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/wko_label"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:paddingRight="20dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/wko_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/wins_label"
+            android:layout_below="@+id/wins_label"
+            android:layout_marginTop="14dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:text="@string/wko"
+            android:textSize="@dimen/profile_subtext_size" />
+
+        <TextView
+            android:id="@+id/wko"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/wko_label"
+            android:layout_alignBottom="@+id/wko_label"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:paddingRight="20dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_subtext_size" />
+
+        <TextView
+            android:id="@+id/wsub_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/wko_label"
+            android:layout_below="@+id/wko_label"
+            android:layout_marginTop="14dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:text="@string/wsub"
+            android:textSize="@dimen/profile_subtext_size" />
+
+        <TextView
+            android:id="@+id/wsub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/wsub_label"
+            android:layout_alignBottom="@+id/wsub_label"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:paddingRight="20dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_subtext_size" />
+
+        <TextView
+            android:id="@+id/wd_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/wsub_label"
+            android:layout_below="@+id/wsub_label"
+            android:layout_marginTop="14dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:text="@string/wd"
+            android:textSize="@dimen/profile_subtext_size" />
+
+        <TextView
+            android:id="@+id/wd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/wd_label"
+            android:layout_alignBottom="@+id/wd_label"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:paddingRight="20dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_subtext_size" />
+
+        <TextView
+            android:id="@+id/losses_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/wd_label"
+            android:layout_below="@+id/wd_label"
+            android:layout_marginTop="14dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:text="@string/losses"
+            android:textSize="@dimen/profile_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/losses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/losses_label"
+            android:layout_alignBottom="@+id/losses_label"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:paddingRight="20dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/titles_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/losses_label"
+            android:layout_below="@+id/losses_label"
+            android:layout_marginTop="14dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:text="@string/titles"
+            android:textSize="@dimen/profile_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/titles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/titles_label"
+            android:layout_alignBottom="@+id/titles_label"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:paddingRight="20dp"
+            android:text="@string/fighter_default_stats"
+            android:textSize="@dimen/profile_text_size"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</LinearLayout>
+    
+    <LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:layout_weight="1" >
+	     
+	    <!-- Editext for Search -->
+	    <EditText android:id="@+id/inputSearch"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="Search fighter"
+	        android:inputType="textVisiblePassword"/>
+	  
+	    <!-- List View -->
+	    <ListView
+	        android:id="@+id/listView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content" />
+	  
+	</LinearLayout>
 </LinearLayout>

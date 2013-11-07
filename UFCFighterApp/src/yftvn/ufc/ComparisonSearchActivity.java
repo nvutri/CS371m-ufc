@@ -71,19 +71,19 @@ public class ComparisonSearchActivity extends Activity {
 		displayListView();
 		
 		// Initialize the text view for the current fighter
-//		initFighterViewInfo();
-//		
-//		Bundle bundle = getIntent().getExtras();
-//		int espnId = bundle.getInt("espnId");
-//		if (espnId > 0) {
-//			// Config ImageLoader.
-//			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-//					getApplicationContext()).build();
-//			mImgLoader = ImageLoader.getInstance();
-//			mImgLoader.init(config);
-//			// Display fighter profile.
-//			displayFighterProfile(espnId);
-//		}
+		initFighterViewInfo();
+		
+		Bundle bundle = getIntent().getExtras();
+		int espnId = bundle.getInt("espnId");
+		if (espnId > 0) {
+			// Config ImageLoader.
+			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+					getApplicationContext()).build();
+			mImgLoader = ImageLoader.getInstance();
+			mImgLoader.init(config);
+			// Display fighter profile.
+			displayFighterProfile(espnId);
+		}
 	}
 	
 	/**
