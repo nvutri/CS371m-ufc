@@ -2,10 +2,13 @@ package yftvn.ufc;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -74,11 +77,29 @@ public class FighterProfileActivity extends Activity {
 		mImgView = (ImageView) findViewById(R.id.fighterPic);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.fighter_profile, menu);
+	@Override 
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{ 
+		super.onCreateOptionsMenu(menu); 
+
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.fighter_profile, menu);
 		return true;
+
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		super.onOptionsItemSelected(item);
+		
+		switch (item.getItemId()) 
+		{
+			case R.id.comparison_search:
+				startActivityForResult(new Intent(this, FighterSearchActivity.class), 0); 
+				return true;
+		}
+		return false;
 	}
 
 	/**
