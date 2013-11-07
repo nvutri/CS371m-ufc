@@ -38,6 +38,13 @@ public class FighterProfileActivity extends Activity {
 	private static final String PHOTO_URL_FORMAT = "http://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/%d.png&w=%d&h=%d";
 	private static final int PHOTO_DEFAULT_WIDTH = 250;
 	private static final int PHOTO_DEFAULT_HEIGHT = 181;
+	
+	/**
+	 * The ESPN ID for the fighter this profile will display.
+	 * This value will also be sent to comparison search so the comparison search
+	 * can display a mini profile for the same fighter.
+	 */
+	private int espnId;
 
 	@Override
 	/**
@@ -51,7 +58,7 @@ public class FighterProfileActivity extends Activity {
 		initFighterViewInfo();
 		// Get Fighter ESPN Id.
 		Bundle bundle = getIntent().getExtras();
-		int espnId = bundle.getInt("espnId");
+		espnId = bundle.getInt("espnId");
 		if (espnId > 0) {
 			// Config ImageLoader.
 			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
@@ -96,7 +103,10 @@ public class FighterProfileActivity extends Activity {
 		switch (item.getItemId()) 
 		{
 			case R.id.comparison_search:
-				startActivityForResult(new Intent(this, FighterSearchActivity.class), 0); 
+				Intent intent = new Intent(FighterProfileActivity.this,
+						ComparisonSearchActivity.class);
+				intent.putExtra("espnId", espnId);
+				startActivity(intent);
 				return true;
 		}
 		return false;

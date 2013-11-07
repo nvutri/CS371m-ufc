@@ -26,6 +26,9 @@
             </intent-filter>
         </activity>
         <activity android:name="yftvn.ufc.FighterProfileActivity" />
+        <activity android:name="yftvn.ufc.ComparisonSearchActivity"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
     </application>
 
 </manifest>
