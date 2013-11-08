@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "UFC-Fighters": {
+            "applicationId": "AJ0JAEbsMNs3pRi9poiROGLxopvwD9Y44aXs8rkz", 
+            "masterKey": "Z5SKXcgw3Ynkx4VLo18mvhZTHaO0l9pVfXmSSG5h"
+        }, 
+        "_default": {
+            "link": "UFC-Fighters"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.12"
+    }
+}
