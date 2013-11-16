@@ -2,6 +2,8 @@ package yftvn.ufc;
 
 import java.util.HashMap;
 
+import com.parse.Parse;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,21 +20,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.parse.Parse;
-
-/**
- * Class to display a list of all fighters. It will initialize connection to
- * server, and download core information. Assuming users to have Internet
- * connection.
- */
-public class FighterSearchActivity extends Activity {
+public class EventActivity extends Activity 
+{
 
 	private static HashMap<String, Integer> fighterEspnId;
 	private static String[] fighterNames;
 	private ArrayAdapter<String> listAdapter;
 
-	// User input to be searched with
-	EditText inputSearch;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,33 +64,6 @@ public class FighterSearchActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-
-		/**
-		 * Add Search Filter to List View.
-		 */
-		inputSearch.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void onTextChanged(CharSequence cs, int arg1, int arg2,
-					int arg3) {
-				// When user changed the Text
-				FighterSearchActivity.this.listAdapter.getFilter().filter(cs);
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void afterTextChanged(Editable arg0) {
-				// TODO Auto-generated method stub
-			}
-		});
-
-		// we register for the contextmneu
-		registerForContextMenu(lv);
 	}
+
 }
