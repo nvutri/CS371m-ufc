@@ -31,7 +31,7 @@ public class EventActivity extends Activity
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fighter_search);
+		setContentView(R.layout.event);
 
 		fighterEspnId = FighterBasicData.getEspnId();
 		fighterNames = FighterBasicData.getFighterNames();
