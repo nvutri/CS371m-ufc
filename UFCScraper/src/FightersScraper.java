@@ -15,7 +15,7 @@ import org.jsoup.select.Elements;
  * 
  * @author nvutri
  */
-public class Scrapers {
+public class FightersScraper {
 	private static final String FIGHTERS_TABLE = "./database/FIGHTERS_TABLE";
 	private static final String FIGHTERS_RECORD = "./database/FIGHTERS_RECORD";
 
