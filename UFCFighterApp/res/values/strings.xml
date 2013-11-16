@@ -13,5 +13,6 @@
     <string name="fighter_search">Search for a fighter</string>
     <string name="fighter_picture_description">Figher Photo</string>
     <string name="fighter_default_stats">0</string>
+    <string name="loading">Loading...</string>
 
 </resources>
