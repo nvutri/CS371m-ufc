@@ -1,5 +1,7 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,16 +20,46 @@ public class EventScraper {
 	private static final String SCHEDULE_SITE = "http://espn.go.com/mma/schedule";
 	private static final String SCHEDULE_TAG = "table.tablehead";
 	private static final String EVENT_SCHEDULE = "./database/EVENT_SCHEDULE.json";
+	private static final String FIGHT_INFO = "./database/FIGHT_INFO.json";
 
 	public static void main(String[] args) throws IOException {
 		// Establish Connection.
 		String url = String.format(SCHEDULE_SITE);
 		Document doc = Jsoup.connect(url).get();
 		Elements eventTable = doc.select(SCHEDULE_TAG);
-		parseTable(eventTable);
+		ArrayList<Event> eList = parseTable(eventTable);
+		printEvents(eList, EVENT_SCHEDULE);
+		ArrayList<FightEvent> fEvents = new ArrayList<FightEvent>();
+		for (Event ev : eList) {
+			fEvents.addAll(FightEventScraper.parseFightEvent(ev.getEventId()));
+		}
+		printEvents(fEvents, FIGHT_INFO);
 	}
 
-	private static void parseTable(Elements eventTable) throws IOException {
+	/**
+	 * Print the list of events into a file in json format.
+	 * 
+	 * @param eventList
+	 * @param dir
+	 * @throws UnsupportedEncodingException
+	 * @throws FileNotFoundException
+	 */
+	private static void printEvents(ArrayList<?> eventList, String dir)
+			throws FileNotFoundException, UnsupportedEncodingException {
+		Gson gson = new Gson();
+		PrintWriter pw = new PrintWriter(dir, "UTF-8");
+		pw.println(gson.toJson(eventList));
+		pw.close();
+	}
+
+	/**
+	 * 
+	 * @param eventTable
+	 * @return
+	 * @throws IOException
+	 */
+	private static ArrayList<Event> parseTable(Elements eventTable)
+			throws IOException {
 		// Tables tag.
 		final String STATHEAD_TAG = "stathead";
 		final String ROW_TAG = "tr";
@@ -51,10 +83,7 @@ public class EventScraper {
 				eventList.add(event);
 			}
 		}
-		Gson gson = new Gson();
-		PrintWriter pw = new PrintWriter(EVENT_SCHEDULE, "UTF-8");
-		pw.println(gson.toJson(eventList));
-		pw.close();
+		return eventList;
 	}
 
 	/**
@@ -65,7 +94,6 @@ public class EventScraper {
 	 */
 	private static Event parseFightEvent(Element fightEvent) {
 		final String FIELD_TAG = "td";
-		final String ESPN_DATE_FORMAT = "MMM dd";
 		Elements fields = fightEvent.select(FIELD_TAG);
 		Integer eventId = parseEventId(fields.get(1));
 		String date = fields.get(0).text();
