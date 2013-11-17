@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,6 +17,7 @@ import com.google.gson.Gson;
 public class EventScraper {
 	private static final String SCHEDULE_SITE = "http://espn.go.com/mma/schedule";
 	private static final String SCHEDULE_TAG = "table.tablehead";
+	private static final String EVENT_SCHEDULE = "./database/EVENT_SCHEDULE.json";
 
 	public static void main(String[] args) throws IOException {
 		// Establish Connection.
@@ -24,7 +27,7 @@ public class EventScraper {
 		parseTable(eventTable);
 	}
 
-	private static void parseTable(Elements eventTable) {
+	private static void parseTable(Elements eventTable) throws IOException {
 		// Tables tag.
 		final String STATHEAD_TAG = "stathead";
 		final String ROW_TAG = "tr";
@@ -32,8 +35,8 @@ public class EventScraper {
 		final String UFC_TAG = "UFC";
 		// 2 tables: this week event and scheduled events.
 		final Integer NUM_TABLES = 2;
+		ArrayList<Event> eventList = new ArrayList<Event>();
 
-		Gson gson = new Gson();
 		int tableIndex = 0;
 		Elements rows = eventTable.select(ROW_TAG);
 		for (Element row : rows) {
@@ -45,9 +48,13 @@ public class EventScraper {
 			} else if (row.text().contains(UFC_TAG)) {
 				// Check if this is UFC event.
 				Event event = parseFightEvent(row);
-				System.out.println(gson.toJson(event));
+				eventList.add(event);
 			}
 		}
+		Gson gson = new Gson();
+		PrintWriter pw = new PrintWriter(EVENT_SCHEDULE, "UTF-8");
+		pw.println(gson.toJson(eventList));
+		pw.close();
 	}
 
 	/**
