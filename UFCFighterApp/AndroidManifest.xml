@@ -26,6 +26,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="yftvn.ufc.EventActivity"
+            android:theme="@android:style/Theme.Holo" />
+        <activity
             android:name="yftvn.ufc.FighterSearchActivity"
             android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" />

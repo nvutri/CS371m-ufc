@@ -49,7 +49,7 @@ public class InitializationActivity extends Activity
 			FighterBasicData.initialize();
 			
 			Intent intent = new Intent(InitializationActivity.this,
-					FighterSearchActivity.class);
+					EventActivity.class);
 			startActivity(intent);
 		} else {
 			displayNetworkAlert(this);

@@ -50,13 +50,16 @@ public class EventActivity extends Activity
         listViewE.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parentAdapter, View view,
 					int position, long id) {
-				TextView clickedView = (TextView) view
-						.findViewById(R.id.fighter_name);
-				String fighterName = clickedView.getText().toString();
-				int espnId = fighterEspnId.get(fighterName);
+				TextView clickedViewL = (TextView) view.findViewById(R.id.left);
+				TextView clickedViewR = (TextView) view.findViewById(R.id.right);
+				String fighterNameL = clickedViewL.getText().toString();
+				String fighterNameR = clickedViewR.getText().toString();
+				int espnId1 = fighterEspnId.get(fighterNameL);
+				int espnId2 = fighterEspnId.get(fighterNameR);
 				Intent intent = new Intent(EventActivity.this,
-						FighterProfileActivity.class);
-				intent.putExtra("espnId", espnId);
+						ComparisonProfileActivity.class);
+				intent.putExtra("espnId1", espnId1);
+				intent.putExtra("espnId2", espnId2);
 				startActivity(intent);
 			}
 		});
