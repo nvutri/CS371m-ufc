@@ -29,4 +29,5 @@ proguard/
 *.ipr
 *.iws
 .idea/
-
+# Mac files
+.DS_Store
