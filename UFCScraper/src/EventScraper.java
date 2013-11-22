@@ -2,7 +2,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -96,9 +102,10 @@ public class EventScraper {
 		final String FIELD_TAG = "td";
 		Elements fields = fightEvent.select(FIELD_TAG);
 		Integer eventId = parseEventId(fields.get(1));
-		String date = fields.get(0).text();
+		String date = formatDate(fields.get(0).text());
 		String eventTitle = fields.get(1).text();
 		String location = fields.get(2).text();
+		System.out.println(date);
 		return new Event(date, eventId, eventTitle, location);
 	}
 
@@ -121,5 +128,25 @@ public class EventScraper {
 			return Integer.valueOf(m.group(2));
 		}
 		return 0;
+	}
+
+	private static String formatDate(String rawDate) {
+		Date date = new Date();
+		try {
+			Date curDate = new Date();
+			date = new SimpleDateFormat("MMM dd", Locale.ENGLISH)
+					.parse(rawDate);
+			date.setYear(curDate.getYear());
+			if (date.before(curDate)) {
+				date.setYear(curDate.getYear() + 1);
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TimeZone tz = TimeZone.getTimeZone("UTC");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		df.setTimeZone(tz);
+		return df.format(date);
 	}
 }
