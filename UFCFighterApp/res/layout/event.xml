@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <!-- Text View Header -->
+    <!-- List View for Events-->
     
-    <TextView android:id="@+id/eventHeader"
+    <ListView
+        android:id="@+id/listViewE"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:textStyle="bold"
-        android:textSize="22dp"
-        android:padding="10dp"
-        android:text="@string/event_header" />
+        android:layout_height="fill_parent" />
 
 </LinearLayout>

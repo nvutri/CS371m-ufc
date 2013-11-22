@@ -2,7 +2,9 @@ package yftvn.ufc;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -33,6 +35,7 @@ public class FightAdapter extends ArrayAdapter<Fight>
             
             holder = new FightHolder();
             holder.left = (TextView)row.findViewById(R.id.left);
+            holder.right = (TextView)row.findViewById(R.id.right);
             
             row.setTag(holder);
         }
@@ -41,9 +44,9 @@ public class FightAdapter extends ArrayAdapter<Fight>
             holder = (FightHolder)row.getTag();
         }
         
-        Fight fight = data[position];
-        holder.txtTitle.setText(weather.title);
-        holder.imgIcon.setImageResource(weather.icon);
+        Fight fight = data.get(position);
+        holder.left.setText(fight.getLeft());
+        holder.right.setText(fight.getRight());
         
         return row;
     }
