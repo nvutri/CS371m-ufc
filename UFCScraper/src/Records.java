@@ -1,6 +1,6 @@
 /**
- * Figher Records.
- * 
+ * Fighter Records.
+ * General stats of a fighter.
  * @author nvutri
  */
 public class Records {
