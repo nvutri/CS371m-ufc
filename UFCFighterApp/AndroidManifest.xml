@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="yftvn.ufc.InitializationActivity"
+            android:name="yftvn.ufc.activities.InitializationActivity"
             android:theme="@android:style/Theme.Holo" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,21 +26,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="yftvn.ufc.EventActivity"
+            android:name="yftvn.ufc.activities.FightEventActivity"
             android:theme="@android:style/Theme.Holo" />
         <activity
-            android:name="yftvn.ufc.FighterSearchActivity"
+            android:name="yftvn.ufc.activities.FighterSearchActivity"
             android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="yftvn.ufc.FighterProfileActivity"
+            android:name="yftvn.ufc.activities.FighterProfileActivity"
             android:theme="@android:style/Theme.Holo" />
         <activity
-            android:name="yftvn.ufc.ComparisonSearchActivity"
+            android:name="yftvn.ufc.activities.ComparisonSearchActivity"
             android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="yftvn.ufc.ComparisonProfileActivity"
+            android:name="yftvn.ufc.activities.ComparisonProfileActivity"
             android:theme="@android:style/Theme.Holo" />
     </application>
 
