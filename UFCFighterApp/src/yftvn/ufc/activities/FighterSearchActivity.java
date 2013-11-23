@@ -1,6 +1,11 @@
-package yftvn.ufc;
+package yftvn.ufc.activities;
 
 import java.util.HashMap;
+
+import yftvn.ufc.R;
+import yftvn.ufc.R.id;
+import yftvn.ufc.R.layout;
+import yftvn.ufc.data.FighterBasicData;
 
 import android.app.Activity;
 import android.app.AlertDialog;

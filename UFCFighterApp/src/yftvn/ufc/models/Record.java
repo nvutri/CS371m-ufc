@@ -1,4 +1,4 @@
-package yftvn.ufc;
+package yftvn.ufc.models;
 
 import com.parse.ParseObject;
 

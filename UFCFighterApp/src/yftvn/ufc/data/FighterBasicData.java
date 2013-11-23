@@ -1,4 +1,4 @@
-package yftvn.ufc;
+package yftvn.ufc.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;

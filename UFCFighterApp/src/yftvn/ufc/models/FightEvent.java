@@ -1,10 +1,10 @@
-package yftvn.ufc;
+package yftvn.ufc.models;
 
-public class Fight 
+public class FightEvent 
 {
 	private String left, right;
 	
-	public Fight(String first, String second)
+	public FightEvent(String first, String second)
 	{
 		left = first;
 		right = second;

@@ -1,6 +1,14 @@
-package yftvn.ufc;
+package yftvn.ufc.activities;
 
 import java.util.HashMap;
+
+import yftvn.ufc.R;
+import yftvn.ufc.R.id;
+import yftvn.ufc.R.layout;
+import yftvn.ufc.data.FighterBasicData;
+import yftvn.ufc.data.FighterData;
+import yftvn.ufc.models.Fighter;
+import yftvn.ufc.models.Record;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

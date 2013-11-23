@@ -1,5 +1,12 @@
-package yftvn.ufc;
+package yftvn.ufc.activities;
 
+import yftvn.ufc.R;
+import yftvn.ufc.R.id;
+import yftvn.ufc.R.layout;
+import yftvn.ufc.R.menu;
+import yftvn.ufc.data.FighterData;
+import yftvn.ufc.models.Fighter;
+import yftvn.ufc.models.Record;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,6 +1,9 @@
-package yftvn.ufc;
+package yftvn.ufc.adapters;
 
 import java.util.ArrayList;
+
+import yftvn.ufc.R;
+import yftvn.ufc.models.FightEvent;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,13 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class FightAdapter extends ArrayAdapter<Fight>
+public class FightAdapter extends ArrayAdapter<FightEvent>
 {
 	Context context; 
     int layoutResourceId;    
-    ArrayList<Fight> data = null;
+    ArrayList<FightEvent> data = null;
     
-    public FightAdapter(Context context, int layoutResourceId, ArrayList<Fight> data) {
+    public FightAdapter(Context context, int layoutResourceId, ArrayList<FightEvent> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -44,9 +47,9 @@ public class FightAdapter extends ArrayAdapter<Fight>
             holder = (FightHolder)row.getTag();
         }
         
-        Fight fight = data.get(position);
-        holder.left.setText(fight.getLeft());
-        holder.right.setText(fight.getRight());
+        FightEvent fightEvent = data.get(position);
+        holder.left.setText(fightEvent.getLeft());
+        holder.right.setText(fightEvent.getRight());
         
         return row;
     }

@@ -1,6 +1,8 @@
-package yftvn.ufc;
+package yftvn.ufc.data;
 
 import java.util.List;
+
+import yftvn.ufc.models.Fighter;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;

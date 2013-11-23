@@ -1,6 +1,11 @@
-package yftvn.ufc;
+package yftvn.ufc.activities;
 
 import java.util.HashMap;
+
+import yftvn.ufc.R;
+import yftvn.ufc.R.drawable;
+import yftvn.ufc.R.layout;
+import yftvn.ufc.data.FighterBasicData;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -49,7 +54,7 @@ public class InitializationActivity extends Activity
 			FighterBasicData.initialize();
 			
 			Intent intent = new Intent(InitializationActivity.this,
-					EventActivity.class);
+					FightEventActivity.class);
 			startActivity(intent);
 		} else {
 			displayNetworkAlert(this);
