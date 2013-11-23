@@ -1,9 +1,6 @@
 package yftvn.ufc.activities;
 
 import yftvn.ufc.R;
-import yftvn.ufc.R.id;
-import yftvn.ufc.R.layout;
-import yftvn.ufc.R.menu;
 import yftvn.ufc.data.FighterData;
 import yftvn.ufc.models.Fighter;
 import yftvn.ufc.models.Record;
@@ -104,7 +101,7 @@ public class ComparisonProfileActivity extends Activity {
 		mWSubTextView1 = (TextView) findViewById(R.id.wsub1);
 		mWDTextView1 = (TextView) findViewById(R.id.wd1);
 		mLossesTextView1 = (TextView) findViewById(R.id.losses1);
-//		mTitlesTextView1 = (TextView) findViewById(R.id.titles1);
+		// mTitlesTextView1 = (TextView) findViewById(R.id.titles1);
 		mImgView1 = (ImageView) findViewById(R.id.fighterPic1);
 	}
 
@@ -115,7 +112,7 @@ public class ComparisonProfileActivity extends Activity {
 		mWSubTextView2 = (TextView) findViewById(R.id.wsub2);
 		mWDTextView2 = (TextView) findViewById(R.id.wd2);
 		mLossesTextView2 = (TextView) findViewById(R.id.losses2);
-//		mTitlesTextView2 = (TextView) findViewById(R.id.titles2);
+		// mTitlesTextView2 = (TextView) findViewById(R.id.titles2);
 		mImgView2 = (ImageView) findViewById(R.id.fighterPic2);
 	}
 
@@ -163,7 +160,7 @@ public class ComparisonProfileActivity extends Activity {
 		mWSubTextView1.setText(String.valueOf(rec.getSubmission()));
 		mWDTextView1.setText(String.valueOf(rec.getDecisionWins()));
 		mLossesTextView1.setText(String.valueOf(rec.getLosses()));
-//		mTitlesTextView1.setText(profile.getTitles());
+		// mTitlesTextView1.setText(profile.getTitles());
 	}
 
 	private void displayFighterProfile2(int espnId) {
@@ -177,7 +174,7 @@ public class ComparisonProfileActivity extends Activity {
 		mWSubTextView2.setText(String.valueOf(rec.getSubmission()));
 		mWDTextView2.setText(String.valueOf(rec.getDecisionWins()));
 		mLossesTextView2.setText(String.valueOf(rec.getLosses()));
-//		mTitlesTextView2.setText(profile.getTitles());
+		// mTitlesTextView2.setText(profile.getTitles());
 	}
 
 	/**

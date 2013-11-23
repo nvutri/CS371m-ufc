@@ -3,10 +3,7 @@ package yftvn.ufc.activities;
 import java.util.HashMap;
 
 import yftvn.ufc.R;
-import yftvn.ufc.R.drawable;
-import yftvn.ufc.R.layout;
 import yftvn.ufc.data.FighterBasicData;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,19 +11,11 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.parse.Parse;
 
-public class InitializationActivity extends Activity 
-{
+public class InitializationActivity extends Activity {
 	public static boolean isConnected;
 
 	private static HashMap<String, Integer> fighterEspnId;
@@ -52,7 +41,7 @@ public class InitializationActivity extends Activity
 			Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
 			// Download the fighter basic info.
 			FighterBasicData.initialize();
-			
+
 			Intent intent = new Intent(InitializationActivity.this,
 					FightEventActivity.class);
 			startActivity(intent);

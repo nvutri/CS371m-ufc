@@ -1,9 +1,6 @@
 package yftvn.ufc.activities;
 
 import yftvn.ufc.R;
-import yftvn.ufc.R.id;
-import yftvn.ufc.R.layout;
-import yftvn.ufc.R.menu;
 import yftvn.ufc.data.FighterData;
 import yftvn.ufc.models.Fighter;
 import yftvn.ufc.models.Record;
@@ -41,11 +38,11 @@ public class FighterProfileActivity extends Activity {
 	private static final String PHOTO_URL_FORMAT = "http://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/%d.png&w=%d&h=%d";
 	private static final int PHOTO_DEFAULT_WIDTH = 250;
 	private static final int PHOTO_DEFAULT_HEIGHT = 181;
-	
+
 	/**
-	 * The ESPN ID for the fighter this profile will display.
-	 * This value will also be sent to comparison search so the comparison search
-	 * can display a mini profile for the same fighter.
+	 * The ESPN ID for the fighter this profile will display. This value will
+	 * also be sent to comparison search so the comparison search can display a
+	 * mini profile for the same fighter.
 	 */
 	private int espnId;
 
@@ -87,30 +84,27 @@ public class FighterProfileActivity extends Activity {
 		mImgView = (ImageView) findViewById(R.id.fighterPic);
 	}
 
-	@Override 
-	public boolean onCreateOptionsMenu(Menu menu) 
-	{ 
-		super.onCreateOptionsMenu(menu); 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
 
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.fighter_profile, menu);
 		return true;
 
 	}
-	
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{
+	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
-		
-		switch (item.getItemId()) 
-		{
-			case R.id.comparison_search:
-				Intent intent = new Intent(FighterProfileActivity.this,
-						ComparisonSearchActivity.class);
-				intent.putExtra("espnId", espnId);
-				startActivity(intent);
-				return true;
+
+		switch (item.getItemId()) {
+		case R.id.comparison_search:
+			Intent intent = new Intent(FighterProfileActivity.this,
+					ComparisonSearchActivity.class);
+			intent.putExtra("espnId", espnId);
+			startActivity(intent);
+			return true;
 		}
 		return false;
 	}

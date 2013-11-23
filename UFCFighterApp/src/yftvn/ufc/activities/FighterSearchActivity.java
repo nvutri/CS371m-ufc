@@ -3,16 +3,9 @@ package yftvn.ufc.activities;
 import java.util.HashMap;
 
 import yftvn.ufc.R;
-import yftvn.ufc.R.id;
-import yftvn.ufc.R.layout;
 import yftvn.ufc.data.FighterBasicData;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,8 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.parse.Parse;
 
 /**
  * Class to display a list of all fighters. It will initialize connection to

@@ -3,29 +3,26 @@ package yftvn.ufc.activities;
 import java.util.HashMap;
 
 import yftvn.ufc.R;
-import yftvn.ufc.R.id;
-import yftvn.ufc.R.layout;
 import yftvn.ufc.data.FighterBasicData;
 import yftvn.ufc.data.FighterData;
 import yftvn.ufc.models.Fighter;
 import yftvn.ufc.models.Record;
-
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.view.View;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
  * Class to display a list of all fighters. It will initialize connection to
@@ -33,10 +30,10 @@ import android.view.View;
  * connection.
  */
 public class ComparisonSearchActivity extends Activity {
-	
+
 	// A tag for the cat log
 	private static final String TAG = "UFC Fighter App";
-	
+
 	/**
 	 * TextView and ImageView fields.
 	 */
@@ -49,7 +46,7 @@ public class ComparisonSearchActivity extends Activity {
 	private static TextView mTitlesTextView;
 	private static ImageView mImgView;
 	private static ImageLoader mImgLoader;
-	
+
 	/**
 	 * The URL Format to get the photo of the fighter based on his espnId. The
 	 * format request 3 integers: espnId, width, height.
@@ -64,12 +61,12 @@ public class ComparisonSearchActivity extends Activity {
 
 	// User input to be searched with
 	EditText inputSearch;
-	
+
 	/**
-	 * These are the 2 fighter espn ID's we are concerned with.
-	 * The first one is for the profile we are displaying on the left, from the profile activity
-	 * The second one is for the user selection to compare to.
-	 * Both espn IDs will be sent to the ComparisonProfileActivity
+	 * These are the 2 fighter espn ID's we are concerned with. The first one is
+	 * for the profile we are displaying on the left, from the profile activity
+	 * The second one is for the user selection to compare to. Both espn IDs
+	 * will be sent to the ComparisonProfileActivity
 	 */
 	private int espnId1, espnId2;
 
@@ -79,16 +76,16 @@ public class ComparisonSearchActivity extends Activity {
 		setContentView(R.layout.comparison_search);
 
 		Log.d(TAG, "We have entered ComparisonSearchActivity");
-		
+
 		fighterEspnId = FighterBasicData.getEspnId();
 		fighterNames = FighterBasicData.getFighterNames();
-		
+
 		// Display the list of fighters.
 		displayListView();
-		
+
 		// Initialize the text view for the current fighter
 		initFighterViewInfo();
-		
+
 		Bundle bundle = getIntent().getExtras();
 		espnId1 = bundle.getInt("espnId");
 		if (espnId1 > 0) {
@@ -101,7 +98,7 @@ public class ComparisonSearchActivity extends Activity {
 			displayFighterProfile();
 		}
 	}
-	
+
 	/**
 	 * Associate all the TextView fields with an object.
 	 */
@@ -115,7 +112,7 @@ public class ComparisonSearchActivity extends Activity {
 		mTitlesTextView = (TextView) findViewById(R.id.titles);
 		mImgView = (ImageView) findViewById(R.id.fighterPic);
 	}
-	
+
 	/**
 	 * Display a Fighter Profile page given his espnId.
 	 * 
@@ -134,7 +131,7 @@ public class ComparisonSearchActivity extends Activity {
 		mLossesTextView.setText(String.valueOf(rec.getLosses()));
 		mTitlesTextView.setText(profile.getTitles());
 	}
-	
+
 	/**
 	 * @param espnId
 	 * @return String of the correct Photo URL to be displayed.
@@ -179,7 +176,8 @@ public class ComparisonSearchActivity extends Activity {
 			public void onTextChanged(CharSequence cs, int arg1, int arg2,
 					int arg3) {
 				// When user changed the Text
-				ComparisonSearchActivity.this.listAdapter.getFilter().filter(cs);
+				ComparisonSearchActivity.this.listAdapter.getFilter()
+						.filter(cs);
 			}
 
 			@Override
