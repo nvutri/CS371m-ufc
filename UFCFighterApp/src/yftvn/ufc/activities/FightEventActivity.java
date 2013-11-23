@@ -33,8 +33,6 @@ public class FightEventActivity extends Activity {
 	private ArrayList<FightEvent> fightEvents;
 
 	private static HashMap<String, Integer> fighterEspnId;
-	private static String[] fighterNames;
-	private ArrayAdapter<String> listAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +49,8 @@ public class FightEventActivity extends Activity {
 		listViewE.addHeaderView(header);
 		listViewE.setAdapter(adapter);
 
+		fighterEspnId = FighterBasicData.getEspnId();
+		
 		// TODO(rain): Change left, right to more descriptive names.
 		listViewE.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parentAdapter, View view,
@@ -69,9 +69,6 @@ public class FightEventActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-
-		fighterEspnId = FighterBasicData.getEspnId();
-		fighterNames = FighterBasicData.getFighterNames();
 
 	}
 
