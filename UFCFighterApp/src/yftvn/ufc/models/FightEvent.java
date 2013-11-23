@@ -1,23 +1,62 @@
 package yftvn.ufc.models;
 
-public class FightEvent 
-{
-	private String left, right;
-	
-	public FightEvent(String first, String second)
-	{
-		left = first;
-		right = second;
+/**
+ * Class for a fight event.
+ */
+public class FightEvent {
+	/* ESPN Event Id */
+	private Integer eventId;
+
+	/* Fighter ESPN Id */
+	private Integer firstFighterId;
+	private Integer secondFighterId;
+
+	/* Fighter Name */
+	private String firstFighter;
+	private String secondFighter;
+
+	/* Fight Info */
+	private String weightClass;
+	private Boolean champBelt;
+
+	public FightEvent(Integer eventId, Integer firstFighterId,
+			Integer secondFighterId, String firstFighter, String secondFighter,
+			String weightClass, Boolean champBelt) {
+		this.eventId = eventId;
+		this.firstFighterId = firstFighterId;
+		this.secondFighterId = secondFighterId;
+		this.firstFighter = firstFighter;
+		this.secondFighter = secondFighter;
+		this.weightClass = weightClass;
+		this.champBelt = champBelt;
 	}
-	
-	public String getLeft()
-	{
-		return left;
+
+	public Integer getEventId() {
+		return eventId;
 	}
-	
-	public String getRight()
-	{
-		return right;
+
+	public Integer getFirstFighterId() {
+		return firstFighterId;
+	}
+
+	public Integer getSecondFighterId() {
+		return secondFighterId;
+	}
+
+	public String getFirstFighter() {
+		return firstFighter;
+	}
+
+	public String getSecondFighter() {
+		return secondFighter;
+	}
+
+	public String getWeightClass() {
+		return weightClass;
+	}
+
+	public Boolean getChampBelt() {
+		return champBelt;
 	}
 
 }
