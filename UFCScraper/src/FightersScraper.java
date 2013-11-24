@@ -1,7 +1,10 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -10,6 +13,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.google.gson.Gson;
+
 /**
  * Walk through fighter profile pages to scrape wins and losses info.
  * 
@@ -17,54 +22,52 @@ import org.jsoup.select.Elements;
  */
 public class FightersScraper {
 	private static final String FIGHTERS_TABLE = "./database/FIGHTERS_TABLE";
-	private static final String FIGHTERS_RECORD = "./database/FIGHTERS_RECORD";
+	private static final String FIGHTERS_RECORD = "./database/FIGHTERS_RECORD.json";
 
 	private static final String ESPN_ADDR = "http://espn.go.com/";
 	private static final String FIGHTER_INFO = ESPN_ADDR
 			+ "mma/fighter/_/id/%d/";
 
 	public static void main(String[] args) throws IOException {
-		final String FIGHTERS_RECORD_COL = "ESPNID\tFIRST NAME\tLAST NAME\tWINS\tSUBMISSION\tKO\tLOSSES";
-		final String FIGHTERS_RECORD_FORMAT = "%d\t%s\t%s\t%d\t%d\t%d\t%d";
-
 		BufferedReader br = new BufferedReader(new FileReader(FIGHTERS_TABLE));
-		PrintWriter pw = new PrintWriter(FIGHTERS_RECORD, "UTF-8");
-		pw.println(FIGHTERS_RECORD_COL);
-
+		ArrayList<Fighter> fighterList = new ArrayList<Fighter>();
 		String line;
 		int lineNumber = 0;
 		try {
 			while ((line = br.readLine()) != null) {
 				++lineNumber;
-				line = br.readLine();
 				String delims = "\t";
 				String[] tokens = line.split(delims);
 				int espnId = Integer.parseInt(tokens[0]);
 				String firstName = tokens[1];
 				String lastName = tokens[2];
-
-				Fighters fighter = scrapeFighter(espnId, firstName, lastName);
+				Fighter fighter = scrapeFighter(espnId, firstName, lastName);
 				if (fighter != null) {
-					Records rec = fighter.getRecord();
-					String fighterInfo = String.format(FIGHTERS_RECORD_FORMAT,
-							fighter.getEspnId(), fighter.getFirstName(),
-							fighter.getLastName(), rec.getWins(),
-							rec.getSubmission(), rec.getKnockout(),
-							rec.getLosses());
-					pw.println(fighterInfo);
-					pw.flush();
-					System.out.printf("%d: Fighter %d %s %s Known \n",
-							lineNumber, espnId, firstName, lastName);
+					fighterList.add(fighter);
 				} else {
-					System.out.printf("%d: Fighter %d %s %s - No photo\n",
-							lineNumber, espnId, firstName, lastName);
+					System.out.printf("%d: Fighter %d %s %s \n", lineNumber,
+							espnId, firstName, lastName);
 				}
-				
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		} finally {
-			pw.close();
 			br.close();
 		}
+		printFighter(fighterList, FIGHTERS_RECORD);
+	}
+
+	/**
+	 * Print a fighter info in json format.
+	 * 
+	 * @throws IOException
+	 */
+	private static void printFighter(ArrayList<Fighter> fighters, String dir)
+			throws IOException {
+		Gson gson = new Gson();
+		PrintWriter pw = new PrintWriter(dir);
+		pw.println(gson.toJson(fighters));
+		pw.close();
 	}
 
 	/**
@@ -74,7 +77,7 @@ public class FightersScraper {
 	 * @return True if the fighter has a photo on ESPN. False otherwise.
 	 */
 	private static boolean hasPhoto(Document doc) {
-		return doc.select("div.main-headshot").size() > 0;
+		return (doc.select("div.main-headshot").size() > 0);
 	}
 
 	/**
@@ -86,20 +89,30 @@ public class FightersScraper {
 	 * @return a Fighter object if it has a photo, null otherwise.
 	 * @throws IOException
 	 */
-	private static Fighters scrapeFighter(int espnId, String firstName,
-			String lastName) throws IOException {
+	private static Fighter scrapeFighter(int espnId, String firstName,
+			String lastName) {
 
 		// Establish Connection.
 		String url = String.format(FIGHTER_INFO, espnId);
-		Document doc = Jsoup.connect(url).get();
-
+		Document doc = new Document(url);
+		Boolean connected = false;
+		while (!connected) {
+			try {
+				doc = Jsoup.connect(url).get();
+				connected = true;
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("Re Connecting.");
+			}
+		}
 		if (hasPhoto(doc)) {
 			// Get the fighting career stats.
-			Records rec = scrapeRecord(doc);
-			return new Fighters(espnId, firstName, lastName, rec);
+			Record rec = scrapeRecord(doc);
+			return new Fighter(espnId, firstName, lastName, rec);
 		} else {
 			return null;
 		}
+
 	}
 
 	/**
@@ -108,7 +121,7 @@ public class FightersScraper {
 	 * @param doc
 	 * @return the general fighting record.
 	 */
-	private static Records scrapeRecord(Document doc) {
+	private static Record scrapeRecord(Document doc) {
 		final String FIGHTER_TAG = "table.header-stats";
 		// Scrape tables for winning info.
 		Elements tables = doc.select(FIGHTER_TAG);
@@ -124,7 +137,7 @@ public class FightersScraper {
 		int submission = Integer.parseInt(resultStats.get("SUBMISSION"));
 		int ko = Integer.parseInt(resultStats.get("(T)KO"));
 		// Parse Result Details.
-		return new Records(wins, submission, ko, losses);
+		return new Record(wins, submission, ko, losses);
 	}
 
 	/**
