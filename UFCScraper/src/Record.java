@@ -3,7 +3,7 @@
  * General stats of a fighter.
  * @author nvutri
  */
-public class Records {
+public class Record {
 	private int wins;
 	private int submission;
 	private int knockout;
@@ -17,7 +17,7 @@ public class Records {
 	 * @param knockout
 	 * @param losses
 	 */
-	public Records(int wins, int submission, int knockout, int losses) {
+	public Record(int wins, int submission, int knockout, int losses) {
 		super();
 		this.wins = wins;
 		this.submission = submission;
