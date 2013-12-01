@@ -5,14 +5,38 @@ Parse.Cloud.define("hello", function(request, response) {
 	response.success("Hello world!");
 });
 
-Parse.Cloud.define("test", function(request, response) {
-	Parse.Cloud.httpRequest({
-		  url: 'http://www.google.com/',
-		  success: function(httpResponse) {
-		    console.log(httpResponse.text);
-		  },
-		  error: function(httpResponse) {
-		    console.error('Request failed with response code ' + httpResponse.status);
-		  }
-		});
+/**
+ * Find a merge in History Fights with a fighter such that both request fighters
+ * have fought before.
+ * 
+ * For example: fighter vs. X and opponent vs. X
+ */
+Parse.Cloud.define("matchesHistory", function(request, response) {
+	var OPPONENT_FIELD = "opponent";
+	var fighter = request.params.fighter;
+	var opponent = request.params.opponent;
+	var fighterRecs = getFightHistory(fighter);
+	var opponentRecs = getFightHistory(opponent);
+	var interRecs = new Array();
+	var fRec, oRec;
+	for (fRec in fighterRecs)
+		for (oRec in opponentRecs)
+			if (fRec.get(OPPONENT_FIELD) == oRec.get(OPPONENT_FIELD)) {
+				interRecs.push(fRec.get(OPPONENT_FIELD));
+				response.success(fRec.get(OPPONENT_FIELD));
+			}
+	response.success(fighterRecs);
 });
+
+function getFightHistory(fighterId) {
+	var query = new Parse.Query("FightHistory");
+	query.equalTo("fighter", fighterId);
+	query.find({
+		success : function(records) {
+			return recs;
+		},
+		error : function() {
+			return null;
+		}
+	});
+}
