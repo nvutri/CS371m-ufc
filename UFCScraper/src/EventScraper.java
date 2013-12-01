@@ -34,12 +34,12 @@ public class EventScraper {
 		Document doc = Jsoup.connect(url).get();
 		Elements eventTable = doc.select(SCHEDULE_TAG);
 		ArrayList<Event> eList = parseTable(eventTable);
-		printEvents(eList, EVENT_SCHEDULE);
+		dumpArrayList(eList, EVENT_SCHEDULE);
 		ArrayList<FightEvent> fEvents = new ArrayList<FightEvent>();
 		for (Event ev : eList) {
 			fEvents.addAll(FightEventScraper.parseFightEvent(ev.getEventId()));
 		}
-		printEvents(fEvents, FIGHT_INFO);
+		dumpArrayList(fEvents, FIGHT_INFO);
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class EventScraper {
 	 * @throws UnsupportedEncodingException
 	 * @throws FileNotFoundException
 	 */
-	private static void printEvents(ArrayList<?> eventList, String dir)
+	public static void dumpArrayList(ArrayList<?> eventList, String dir)
 			throws FileNotFoundException, UnsupportedEncodingException {
 		Gson gson = new Gson();
 		PrintWriter pw = new PrintWriter(dir, "UTF-8");
@@ -115,7 +115,7 @@ public class EventScraper {
 	 * @param eventField
 	 * @return the integer event field id.
 	 */
-	private static Integer parseEventId(Element eventField) {
+	public static Integer parseEventId(Element eventField) {
 		Element eventId = eventField.select("a[href]").first();
 		// String to be scanned to find the pattern.
 		String line = eventId.attr("href");

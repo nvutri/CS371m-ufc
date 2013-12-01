@@ -1,9 +1,11 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,154 +13,97 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /**
- * Walk through fighter profile pages to scrape his fight history.
- * 
- * @author nvutri
+ * Walk through all fighter profile pages to scrape all their fight history.
  */
 public class FightRecordScraper {
-	private static final String FIGHTERS_TABLE = "./database/FIGHTERS_TABLE";
-	private static final String FIGHT_RECORD = "./database/FIGHT_RECORD.json";
+	private static final String FIGHTERS_ESPNID = "./database/FIGHTERS_ESPNID";
+	private static final String FIGHT_HISTORY = "./database/FIGHT_HISTORY.json";
 
-	private static final String ESPN_ADDR = "http://espn.go.com/";
-	private static final String FIGHTER_INFO = ESPN_ADDR
-			+ "mma/fighter/_/id/%d/";
+	private static final String ESPN_MMA = "http://espn.go.com/mma/fighter";
+	private static final String FIGHTER_HISTORY = ESPN_MMA
+			+ "/history/_/id/%d/";
+	private static final String HISTORY_TABLE = "table.mod-player-stats";
 
 	public static void main(String[] args) throws IOException {
-		final String FIGHTERS_RECORD_FORMAT = "%d\t%s\t%s\t%d\t%d\t%d\t%d";
-
-		BufferedReader br = new BufferedReader(new FileReader(FIGHTERS_TABLE));
-		PrintWriter pw = new PrintWriter(FIGHT_RECORD, "UTF-8");
-
+		BufferedReader br = new BufferedReader(new FileReader(FIGHTERS_ESPNID));
 		String line;
-		int lineNumber = 0;
-		try {
-			while ((line = br.readLine()) != null) {
-				++lineNumber;
-				line = br.readLine();
-				String delims = "\t";
-				String[] tokens = line.split(delims);
-				int espnId = Integer.parseInt(tokens[0]);
-				String firstName = tokens[1];
-				String lastName = tokens[2];
-
-				Fighters fighter = scrapeFighter(espnId, firstName, lastName);
-				if (fighter != null) {
-					Records rec = fighter.getRecord();
-					String fighterInfo = String.format(FIGHTERS_RECORD_FORMAT,
-							fighter.getEspnId(), fighter.getFirstName(),
-							fighter.getLastName(), rec.getWins(),
-							rec.getSubmission(), rec.getKnockout(),
-							rec.getLosses());
-					pw.println(fighterInfo);
-					pw.flush();
-					System.out.printf("%d: Fighter %d %s %s Known \n",
-							lineNumber, espnId, firstName, lastName);
-				} else {
-					System.out.printf("%d: Fighter %d %s %s - No photo\n",
-							lineNumber, espnId, firstName, lastName);
-				}
-
-			}
-		} finally {
-			pw.close();
-			br.close();
+		ArrayList<FightRecord> allFights = new ArrayList<FightRecord>();
+		while ((line = br.readLine()) != null) {
+			Integer espnId = Integer.valueOf(line);
+			allFights.addAll(scrapeFighterHistory(espnId));
 		}
+		EventScraper.dumpArrayList(allFights, FIGHT_HISTORY);
+		br.close();
 	}
 
 	/**
-	 * Check if a fighter has a photo.
-	 * 
-	 * @param doc
-	 * @return True if the fighter has a photo on ESPN. False otherwise.
+	 * Scrape history fighting of a fighter
 	 */
-	private static boolean hasPhoto(Document doc) {
-		return doc.select("div.main-headshot").size() > 0;
-	}
-
-	/**
-	 * Fetch a fighter info by scraping ESPN.com.
-	 * 
-	 * @param espnId
-	 * @param firstName
-	 * @param lastName
-	 * @return a Fighter object if it has a photo, null otherwise.
-	 * @throws IOException
-	 */
-	private static Fighters scrapeFighter(int espnId, String firstName,
-			String lastName) throws IOException {
-
+	private static ArrayList<FightRecord> scrapeFighterHistory(int espnId) {
 		// Establish Connection.
-		String url = String.format(FIGHTER_INFO, espnId);
-		Document doc = Jsoup.connect(url).get();
-
-		if (hasPhoto(doc)) {
-			// Get the fighting career stats.
-			Records rec = scrapeRecord(doc);
-			return new Fighters(espnId, firstName, lastName, rec);
-		} else {
-			return null;
+		String url = String.format(FIGHTER_HISTORY, espnId);
+		Document doc = new Document(url);
+		// Get the page.
+		Boolean connected = false;
+		while (!connected) {
+			try {
+				doc = Jsoup.connect(url).get();
+				connected = true;
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("Re Connecting.");
+			}
 		}
+		Element table = doc.select(HISTORY_TABLE).first();
+		ArrayList<FightRecord> fightHistory = parseTable(espnId, table);
+		return fightHistory;
 	}
 
 	/**
-	 * Scrape the fighter MMA Records.
+	 * Parse the fight history table.
 	 * 
-	 * @param doc
-	 * @return the general fighting record.
-	 */
-	private static Records scrapeRecord(Document doc) {
-		final String FIGHTER_TAG = "table.header-stats";
-		// Scrape tables for winning info.
-		Elements tables = doc.select(FIGHTER_TAG);
-		// Assert 2 tables: WINS-LOSSES-DRAWS and KO-SUBMISSION.
-		assert 2 == tables.size();
-		Element career = tables.get(0);
-		Element result = tables.get(1);
-		// Parse Career Stats.
-		HashMap<String, String> careerStats = parseTable(career);
-		HashMap<String, String> resultStats = parseResult(result);
-		int wins = Integer.parseInt(careerStats.get("WINS"));
-		int losses = Integer.parseInt(careerStats.get("LOSSES"));
-		int submission = Integer.parseInt(resultStats.get("SUBMISSION"));
-		int ko = Integer.parseInt(resultStats.get("(T)KO"));
-		// Parse Result Details.
-		return new Records(wins, submission, ko, losses);
-	}
-
-	/**
-	 * Parse the career stats table.
-	 * 
-	 * @param career
-	 * @return an array of wins & losses.
-	 */
-	private static HashMap<String, String> parseTable(Element table) {
-		final String TABLE_COLUMN = "td";
-		final String TABLE_HEAD = "th";
-		Elements cols = table.select(TABLE_COLUMN);
-		Elements heads = table.select(TABLE_HEAD);
-		HashMap<String, String> stats = new HashMap<String, String>();
-		Iterator<Element> colIter = cols.iterator();
-		for (Element head : heads) {
-			stats.put(head.text(), colIter.next().text());
-		}
-		return stats;
-	}
-
-	/**
-	 * Parse the detail into numbers.
-	 * 
-	 * @param result
+	 * @param fighterId
+	 * @param table
 	 * @return
 	 */
-	private static HashMap<String, String> parseResult(Element result) {
-		final String RESULT_DETAIL_DELIMS = " - ";
-		HashMap<String, String> stats = parseTable(result);
-		for (String key : stats.keySet()) {
-			String val = stats.get(key);
-			String[] tokens = val.split(RESULT_DETAIL_DELIMS);
-			String wins = tokens[0];
-			stats.put(key, wins);
+	private static ArrayList<FightRecord> parseTable(Integer fighterId,
+			Element table) {
+		final String TABLE_ROW = "tr.oddrow, tr.evenrow";
+		ArrayList<FightRecord> fights = new ArrayList<FightRecord>();
+		Elements rows = table.select(TABLE_ROW);
+		for (Element row : rows) {
+			fights.add(parseFight(fighterId, row));
 		}
-		return stats;
+		return fights;
+	}
+
+	/**
+	 * Parse the fighting detail into a FightRecord.
+	 * 
+	 * @param fighterId
+	 * @param row
+	 * @return
+	 */
+	private static FightRecord parseFight(Integer fighterId, Element row) {
+		final String TABLE_COL = "td";
+		final Integer EVENT_FIELD_ID = 1;
+		final Integer OPPONENT_FIELD_ID = 2;
+		final Integer RESULT_FIELD_ID = 3;
+		final Integer DECISION_FIELD_ID = 4;
+		final Integer ROUND_FIELD_ID = 5;
+		final Integer TIME_FIELD_ID = 6;
+
+		Elements cols = row.select(TABLE_COL);
+		Integer eventId = EventScraper.parseEventId(cols.get(EVENT_FIELD_ID));
+		Integer opponentId = FightEventScraper.parseFighterId(cols
+				.get(OPPONENT_FIELD_ID));
+		FightResult fightResult = FightResult.valueOf(cols.get(RESULT_FIELD_ID)
+				.text().toUpperCase());
+		String fightDecision = cols.get(DECISION_FIELD_ID).text();
+		Integer fightRound = Integer.valueOf(cols.get(ROUND_FIELD_ID).text());
+		String fightTime = cols.get(TIME_FIELD_ID).text();
+		FightRecord rec = new FightRecord(eventId, fighterId, opponentId,
+				fightRound, fightTime, fightResult, fightDecision);
+		return rec;
 	}
 }

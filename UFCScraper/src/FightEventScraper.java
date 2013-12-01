@@ -70,7 +70,7 @@ public class FightEventScraper {
 	 * @param fightEvent
 	 * @return
 	 */
-	private static Integer parseFighterId(Element fighter) {
+	public static Integer parseFighterId(Element fighter) {
 		final String FIGHTER_ID_PATTERN = "(fighter/_/id/)(\\d+)";
 		Element fighterId = fighter.select("a[href]").first();
 		// String to be scanned to find the pattern.
