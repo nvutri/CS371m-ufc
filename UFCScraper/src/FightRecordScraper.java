@@ -8,6 +8,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.google.gson.Gson;
+
 /**
  * Walk through all fighter profile pages to scrape all their fight history.
  */
@@ -65,10 +67,15 @@ public class FightRecordScraper {
 	private static ArrayList<FightRecord> parseTable(Integer fighterId,
 			Element table) {
 		final String TABLE_ROW = "tr.oddrow, tr.evenrow";
+		Gson gson = new Gson();
 		ArrayList<FightRecord> fights = new ArrayList<FightRecord>();
 		Elements rows = table.select(TABLE_ROW);
 		for (Element row : rows) {
-			fights.add(parseFight(fighterId, row));
+			FightRecord rec = parseFight(fighterId, row);
+			if (rec != null) {
+				System.out.println(gson.toJson(rec));
+				fights.add(rec);
+			}
 		}
 		return fights;
 	}
@@ -88,18 +95,22 @@ public class FightRecordScraper {
 		final Integer DECISION_FIELD_ID = 4;
 		final Integer ROUND_FIELD_ID = 5;
 		final Integer TIME_FIELD_ID = 6;
-
 		Elements cols = row.select(TABLE_COL);
-		Integer eventId = EventScraper.parseEventId(cols.get(EVENT_FIELD_ID));
-		Integer opponentId = FightEventScraper.parseFighterId(cols
-				.get(OPPONENT_FIELD_ID));
-		FightResult fightResult = FightResult.valueOf(cols.get(RESULT_FIELD_ID)
-				.text().toUpperCase());
-		String fightDecision = cols.get(DECISION_FIELD_ID).text();
-		Integer fightRound = Integer.valueOf(cols.get(ROUND_FIELD_ID).text());
-		String fightTime = cols.get(TIME_FIELD_ID).text();
-		FightRecord rec = new FightRecord(eventId, fighterId, opponentId,
-				fightRound, fightTime, fightResult, fightDecision);
-		return rec;
+		try {
+			Integer eventId = EventScraper.parseEventId(cols
+					.get(EVENT_FIELD_ID));
+			Integer opponentId = FightEventScraper.parseFighterId(cols
+					.get(OPPONENT_FIELD_ID));
+			String fightResult = cols.get(RESULT_FIELD_ID).text().toUpperCase();
+			String fightDecision = cols.get(DECISION_FIELD_ID).text();
+			String fightRound = cols.get(ROUND_FIELD_ID).text();
+			String fightTime = cols.get(TIME_FIELD_ID).text();
+			FightRecord rec = new FightRecord(eventId, fighterId, opponentId,
+					fightRound, fightTime, fightResult, fightDecision);
+			return rec;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return null;
 	}
 }

@@ -10,15 +10,15 @@ public class FightRecord {
 	private Integer opponent;
 
 	/* Fight Info */
-	private Integer round;
+	private String round;
 	private String time;
 
 	/* Fight Final Result */
-	private FightResult result;
+	private String result;
 	private String decision;
 
 	public FightRecord(Integer eventId, Integer fighter, Integer opponent,
-			Integer round, String time, FightResult result, String decision) {
+			String round, String time, String result, String decision) {
 		this.eventId = eventId;
 		this.fighter = fighter;
 		this.opponent = opponent;
