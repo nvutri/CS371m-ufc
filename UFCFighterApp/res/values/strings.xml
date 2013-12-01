@@ -16,5 +16,7 @@
     <string name="loading">Loading...</string>
     <string name="event_header">Event Header</string>
     <string name="vs">vs.</string>
+    <string name="one">You haven\'t selected a fighter yet</string>
+    <string name="two">You haven\'t selected a second fighter yet</string>
 
 </resources>
