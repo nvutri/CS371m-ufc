@@ -126,7 +126,7 @@ public class FighterProfileActivity extends Activity {
 		super.onCreateOptionsMenu(menu); 
 
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.options_menu, menu);
+		inflater.inflate(R.menu.fighter_profile, menu);
 		return true;
 
 	}
@@ -144,17 +144,9 @@ public class FighterProfileActivity extends Activity {
 				fighterSearchMenu();   	
 				return true;
 				
-			case R.id.fighter_profile_menu:
-				fighterProfileMenu();
-				return true;
-				
-			case R.id.comparison_search_menu:
-				comparisonSearchMenu();
-				return true;
-				
-			case R.id.comparison_profile_menu:
-				comparisonProfileMenu();
-				return true;
+			case R.id.comparison_search:
+                comparisonSearchMenu();
+                return true;
 		}
 		return false;
 	}
@@ -172,82 +164,15 @@ public class FighterProfileActivity extends Activity {
 	{
 		Intent intent = new Intent(FighterProfileActivity.this,
 				FighterSearchActivity.class);
-		intent.putExtra("espnId1", espnId1);
-		intent.putExtra("espnId2", espnId2);
 		startActivity(intent);
-	}
-	
-	public void fighterProfileMenu()
-	{
 	}
 	
 	public void comparisonSearchMenu()
 	{
-		if (mode == 0)
-		{
-			showDialog(DIALOG_ONE_ID);
-		}
-		else
-		{
-			Intent intent = new Intent(FighterProfileActivity.this,
-					ComparisonSearchActivity.class);
-			intent.putExtra("espnId1", espnId1);
-			intent.putExtra("espnId2", espnId2);
-			startActivity(intent);
-		}
-	}
-	
-	public void comparisonProfileMenu()
-	{
-		if (mode != 2)
-		{
-			showDialog(DIALOG_TWO_ID);
-		}
-		else
-		{
-			Intent intent = new Intent(FighterProfileActivity.this,
-					ComparisonProfileActivity.class);
-			intent.putExtra("espnId1", espnId1);
-			intent.putExtra("espnId2", espnId2);
-			startActivity(intent);
-		}
-	}
-	
-	protected Dialog onCreateDialog(int id) 
-	{
-		Dialog dialog = null;
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-		switch(id) {
-			case DIALOG_ONE_ID:
-				dialog = createMissingDialog(builder, 1);
-				break;
-			case DIALOG_TWO_ID:
-				dialog = createMissingDialog(builder, 2);
-				break;
-		}
- 
-		if(dialog == null)
-			Log.d(TAG, "Dialog has a null value");
-		else
-			Log.d(TAG, "Dialog created: " + id + ", dialog: " + dialog);
-		return dialog;   
-	}
-	
-	// helper method for creating dialog
-	private Dialog createMissingDialog(Builder builder, int count) 
-	{
-		if (count == 1)
-		{
-			builder.setMessage(R.string.one); 
-		}
-		else
-		{
-			builder.setMessage(R.string.two); 
-		}
-		
-		builder.setPositiveButton("OK", null);	
-		return builder.create();
+		Intent intent = new Intent(FighterProfileActivity.this,
+                ComparisonSearchActivity.class);
+		intent.putExtra("espnId1", espnId1);
+		startActivity(intent);
 	}
 
 	/**

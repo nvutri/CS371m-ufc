@@ -33,23 +33,12 @@ public class FighterSearchActivity extends Activity {
 	// A tag for the cat log
 	private static final String TAG = "UFC Fighter App";
 	
-	private static final int DIALOG_ONE_ID = 1;
-	private static final int DIALOG_TWO_ID = 2;
-	
-	/*
-	 * for determining at what point this activity was called
-	 * 0 = First time this activity has been called. A fighter/fighters has yet to be selected
-	 * 1 = The user has already selected one fighter previously before navigating back to here
-	 * 2 = The user has selected 2 fighters previously, before navigating back to here
-	 */
-	private int mode = 0;
-	
 	/**
 	 * The ESPN ID for the fighter this profile will display. This value will
 	 * also be sent to comparison search so the comparison search can display a
 	 * mini profile for the same fighter.
 	 */
-	private int espnId1, espnId2;
+	private int espnId1;
 	
 	private static HashMap<String, Integer> fighterEspnId;
 	private static String[] fighterNames;
@@ -62,25 +51,6 @@ public class FighterSearchActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fighter_search);
-		
-		Bundle bundle = getIntent().getExtras();
-		if (bundle.getInt("espnId2") != 0)
-		{
-			mode = 2;
-			espnId1 = bundle.getInt("espnId1");
-			espnId2 = bundle.getInt("espnId2");
-		}
-		else if (bundle.getInt("espnId1") != 0)
-		{
-			mode = 1;
-			espnId1 = bundle.getInt("espnId1");
-			espnId2 = 0;
-		}
-		else
-		{
-			espnId1 = 0;
-			espnId2 = 0;
-		}
 
 		fighterEspnId = FighterBasicData.getEspnId();
 		fighterNames = FighterBasicData.getFighterNames();
@@ -110,7 +80,6 @@ public class FighterSearchActivity extends Activity {
 				Intent intent = new Intent(FighterSearchActivity.this,
 						FighterProfileActivity.class);
 				intent.putExtra("espnId1", espnId1);
-				intent.putExtra("espnId2", espnId2);
 				startActivity(intent);
 			}
 		});
@@ -167,18 +136,6 @@ public class FighterSearchActivity extends Activity {
 			case R.id.fighter_search_menu: 
 				fighterSearchMenu();   	
 				return true;
-				
-			case R.id.fighter_profile_menu:
-				fighterProfileMenu();
-				return true;
-				
-			case R.id.comparison_search_menu:
-				comparisonSearchMenu();
-				return true;
-				
-			case R.id.comparison_profile_menu:
-				comparisonProfileMenu();
-				return true;
 		}
 		return false;
 	}
@@ -187,98 +144,11 @@ public class FighterSearchActivity extends Activity {
 	{
 		Intent intent = new Intent(FighterSearchActivity.this,
 				FightEventActivity.class);
-		intent.putExtra("espnId1", espnId1);
-		intent.putExtra("espnId2", espnId2);
 		startActivity(intent);
 	}
 	
 	public void fighterSearchMenu()
 	{
 		
-	}
-	
-	public void fighterProfileMenu()
-	{
-		if (mode == 0)
-		{
-			showDialog(DIALOG_ONE_ID);
-		}
-		else
-		{
-			Intent intent = new Intent(FighterSearchActivity.this,
-					FighterProfileActivity.class);
-			intent.putExtra("espnId1", espnId1);
-			intent.putExtra("espnId2", espnId2);
-			startActivity(intent);
-		}
-	}
-	
-	public void comparisonSearchMenu()
-	{
-		if (mode == 0)
-		{
-			showDialog(DIALOG_ONE_ID);
-		}
-		else
-		{
-			Intent intent = new Intent(FighterSearchActivity.this,
-					ComparisonSearchActivity.class);
-			intent.putExtra("espnId1", espnId1);
-			intent.putExtra("espnId2", espnId2);
-			startActivity(intent);
-		}
-	}
-	
-	public void comparisonProfileMenu()
-	{
-		if (mode != 2)
-		{
-			showDialog(DIALOG_TWO_ID);
-		}
-		else
-		{
-			Intent intent = new Intent(FighterSearchActivity.this,
-					ComparisonProfileActivity.class);
-			intent.putExtra("espnId1", espnId1);
-			intent.putExtra("espnId2", espnId2);
-			startActivity(intent);
-		}
-	}
-	
-	protected Dialog onCreateDialog(int id) 
-	{
-		Dialog dialog = null;
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-		switch(id) {
-			case DIALOG_ONE_ID:
-				dialog = createMissingDialog(builder, 1);
-				break;
-			case DIALOG_TWO_ID:
-				dialog = createMissingDialog(builder, 2);
-				break;
-		}
- 
-		if(dialog == null)
-			Log.d(TAG, "Dialog has a null value");
-		else
-			Log.d(TAG, "Dialog created: " + id + ", dialog: " + dialog);
-		return dialog;   
-	}
-	
-	// helper method for creating dialog
-	private Dialog createMissingDialog(Builder builder, int count) 
-	{
-		if (count == 1)
-		{
-			builder.setMessage(R.string.one); 
-		}
-		else
-		{
-			builder.setMessage(R.string.two); 
-		}
-		
-		builder.setPositiveButton("OK", null);	
-		return builder.create();
 	}
 }

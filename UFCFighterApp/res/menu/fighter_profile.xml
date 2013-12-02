@@ -1,9 +1,15 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <item
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+	<item 
+	    android:id="@+id/event_menu"
+		android:title="Event" />
+	<item 
+	    android:id="@+id/fighter_search_menu"
+		android:title="Fighter Search" />
+	<item
         android:id="@+id/comparison_search"
         android:icon="@drawable/vs"
         android:showAsAction="always"
         android:title="comparison"/>
-
+	
 </menu>

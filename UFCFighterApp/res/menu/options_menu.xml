@@ -6,14 +6,5 @@
 	<item 
 	    android:id="@+id/fighter_search_menu"
 		android:title="Fighter Search" />
-	<item 
-	    android:id="@+id/fighter_profile_menu"
-		android:title="Fighter Profile" />
-	<item 
-	    android:id="@+id/comparison_search_menu"
-		android:title="Comparison Search" />
-	<item 
-	    android:id="@+id/comparison_profile_menu"
-		android:title="Comparison Profile" />
 	
 </menu>
