@@ -44,6 +44,8 @@ public class InitializationActivity extends Activity {
 
 			Intent intent = new Intent(InitializationActivity.this,
 					FightEventActivity.class);
+			intent.putExtra("espnId1", 0);
+			intent.putExtra("espnId2", 0);
 			startActivity(intent);
 		} else {
 			displayNetworkAlert(this);
