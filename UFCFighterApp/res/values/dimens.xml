@@ -8,4 +8,5 @@
     <dimen name="listview_text_size">16dip</dimen>
 	<dimen name="event_fighter_text_size">18dp</dimen>
 	<dimen name="event_vs_text_size">12dp</dimen>
+	<dimen name="comparision_profile_text_margin">5dp</dimen>
 </resources>
