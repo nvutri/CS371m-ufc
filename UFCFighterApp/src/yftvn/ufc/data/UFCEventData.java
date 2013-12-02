@@ -13,7 +13,7 @@ import com.parse.ParseQuery;
  * Query the Event data from Parse. Adapt this data into a list of Event.
  * 
  */
-public class EventData {
+public class UFCEventData {
 	/**
 	 * UFC Event Table Meta Info from Parse.
 	 */
