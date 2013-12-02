@@ -53,6 +53,8 @@ public class FightEventListActivity extends Activity
 						FightEventActivity.class);
 				intent.putExtra("eventId", uEvent.getEventId());
 				Log.d(TAG, "Event ID being passed: "+uEvent.getEventId());
+				intent.putExtra("eventName", uEvent.getTitle());
+				Log.d(TAG, "Event Name/Title being passed: "+uEvent.getTitle());
 				startActivity(intent);
 			}
 		});

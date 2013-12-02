@@ -21,7 +21,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class FightEventActivity extends Activity {
 	
@@ -29,14 +31,17 @@ public class FightEventActivity extends Activity {
 	private static final String TAG = "Event";
 	
 	/**
-	 * The event ID for the UFC event this activity will display.
+	 * The event ID and name for the UFC event this activity will display.
 	 */
 	private int eventId;
+	private String eventName;
 	
 	private ArrayList<FightEvent> fightEvents;
 
-	// TODO (nvutri): Change from hard-coding to a variable.
-//	private static final Integer EVENT_ID = 400477454;
+	/**
+	 * TextView fields.
+	 */
+	private static TextView mEventTextView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -46,25 +51,27 @@ public class FightEventActivity extends Activity {
 		
 		Bundle bundle = getIntent().getExtras();
 		eventId = bundle.getInt("eventId");
+		eventName = bundle.getString("eventName");
+		
+		Log.d(TAG, "Event ID is: "+eventId);
+		Log.d(TAG, "Event Name is: "+eventName);
 		
 		// Get all fight Events from Parse.
 		fightEvents = FightEventData.getAllFightEvents(eventId);
 		
-		Log.d(TAG, "Event ID is: "+eventId);
-
+		initHeaderView();
 		// Displaying all the fight events.
 		FightAdapter adapter = new FightAdapter(this, R.layout.event_row,
 				fightEvents);
 		ListView listViewE = (ListView) findViewById(R.id.listViewE);
-		View header = (View) getLayoutInflater().inflate(R.layout.event_header,
-				null);
-		listViewE.addHeaderView(header);
+		//View header = (View) getLayoutInflater().inflate(R.layout.event_header, null);
+		//listViewE.addHeaderView(header);
 		listViewE.setAdapter(adapter);
 
 		listViewE.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parentAdapter, View view,
 					int position, long id) {
-				FightEvent fEvent = fightEvents.get(position - 1);
+				FightEvent fEvent = fightEvents.get(position);
 				Intent intent = new Intent(FightEventActivity.this,
 						ComparisonProfileActivity.class);
 				intent.putExtra("espnId1", fEvent.getFirstFighterId());
@@ -72,6 +79,15 @@ public class FightEventActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+	}
+	
+	/**
+	 * Associate the header TextView field with an object.
+	 */
+	private void initHeaderView() 
+	{
+		mEventTextView = (TextView) findViewById(R.id.eventHeader);
+		mEventTextView.setText(eventName);
 	}
 	
 	@Override 
