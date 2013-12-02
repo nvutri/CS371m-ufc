@@ -1,12 +1,10 @@
 package yftvn.ufc.models;
 
-
 import com.parse.ParseObject;
 
 /**
  * Fighter Info.
  * 
- * @author nvutri
  */
 public class Fighter {
 	private int espnId;
