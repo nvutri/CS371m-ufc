@@ -1,51 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="10dp">
-    
-     <TextView android:id="@+id/left"
+    android:orientation="horizontal"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:textStyle="bold"
-        android:textSize="22dp"
-        android:text="@string/name"
-        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" />
-     
-     <TextView android:id="@+id/vs"
+        android:text="@string/name"
+        android:textSize="@dimen/event_fighter_text_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/vs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
         android:text="@string/vs"
-        android:textSize="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" />
-        
-     <TextView android:id="@+id/right"
+        android:textSize="@dimen/event_vs_text_size" />
+
+    <TextView
+        android:id="@+id/right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/vs"
-        android:layout_alignBottom="@+id/vs"
         android:layout_alignParentRight="true"
-        android:gravity="right"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:textStyle="bold"
-        android:textSize="22dp"
-        android:text="@string/name"
+        android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" />
-     
-        
-</LinearLayout>
+        android:text="@string/name"
+        android:textSize="@dimen/event_fighter_text_size"
+        android:textStyle="bold" />
+
+</RelativeLayout>
