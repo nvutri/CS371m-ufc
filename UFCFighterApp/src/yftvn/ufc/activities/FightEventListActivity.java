@@ -40,15 +40,12 @@ public class FightEventListActivity extends Activity
 		EventAdapter adapter = new EventAdapter(this, R.layout.event_list_row,
 				ufcEvents);
 		ListView eventListView = (ListView) findViewById(R.id.eventListView);
-		View header = (View) getLayoutInflater().inflate(R.layout.event_list_header,
-				null);
-		eventListView.addHeaderView(header);
 		eventListView.setAdapter(adapter);
 
 		eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parentAdapter, View view,
 					int position, long id) {
-				UFCEvent uEvent = ufcEvents.get(position - 1);
+				UFCEvent uEvent = ufcEvents.get(position);
 				Intent intent = new Intent(FightEventListActivity.this,
 						FightEventActivity.class);
 				intent.putExtra("eventId", uEvent.getEventId());
