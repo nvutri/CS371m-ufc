@@ -26,19 +26,17 @@ import android.widget.ListView;
 public class FightEventActivity extends Activity {
 	
 	// A tag for the cat log
-	private static final String TAG = "UFC Fighter App";
+	private static final String TAG = "Event";
 	
 	/**
-	 * The ESPN ID for the fighter this profile will display. This value will
-	 * also be sent to comparison search so the comparison search can display a
-	 * mini profile for the same fighter.
+	 * The event ID for the UFC event this activity will display.
 	 */
-	private int espnId1, espnId2;
+	private int eventId;
 	
 	private ArrayList<FightEvent> fightEvents;
 
 	// TODO (nvutri): Change from hard-coding to a variable.
-	private static final Integer EVENT_ID = 400477454;
+//	private static final Integer EVENT_ID = 400477454;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -46,8 +44,13 @@ public class FightEventActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event);
 		
+		Bundle bundle = getIntent().getExtras();
+		eventId = bundle.getInt("eventId");
+		
 		// Get all fight Events from Parse.
-		fightEvents = FightEventData.getAllFightEvents(EVENT_ID);
+		fightEvents = FightEventData.getAllFightEvents(eventId);
+		
+		Log.d(TAG, "Event ID is: "+eventId);
 
 		// Displaying all the fight events.
 		FightAdapter adapter = new FightAdapter(this, R.layout.event_row,
@@ -100,7 +103,9 @@ public class FightEventActivity extends Activity {
 	
 	public void eventMenu()
 	{
-		
+		Intent intent = new Intent(FightEventActivity.this,
+				FightEventListActivity.class);
+		startActivity(intent);
 	}
 	
 	public void fighterSearchMenu()

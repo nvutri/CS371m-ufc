@@ -149,7 +149,7 @@ public class ComparisonProfileActivity extends Activity {
 	public void eventMenu()
 	{
 		Intent intent = new Intent(ComparisonProfileActivity.this,
-				FightEventActivity.class);
+				FightEventListActivity.class);
 		startActivity(intent);
 	}
 	

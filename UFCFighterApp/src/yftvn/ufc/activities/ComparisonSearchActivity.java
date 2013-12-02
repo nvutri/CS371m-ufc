@@ -137,7 +137,7 @@ public class ComparisonSearchActivity extends Activity {
 	public void eventMenu()
 	{
 		Intent intent = new Intent(ComparisonSearchActivity.this,
-				FightEventActivity.class);
+				FightEventListActivity.class);
 		startActivity(intent);
 	}
 	

@@ -143,7 +143,7 @@ public class FighterSearchActivity extends Activity {
 	public void eventMenu()
 	{
 		Intent intent = new Intent(FighterSearchActivity.this,
-				FightEventActivity.class);
+				FightEventListActivity.class);
 		startActivity(intent);
 	}
 	

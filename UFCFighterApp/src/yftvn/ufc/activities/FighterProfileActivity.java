@@ -25,23 +25,12 @@ public class FighterProfileActivity extends Activity {
 	// A tag for the cat log
 	private static final String TAG = "UFC Fighter App";
 	
-	private static final int DIALOG_ONE_ID = 1;
-	private static final int DIALOG_TWO_ID = 2;
-	
-	/*
-	 * for determining at what point this activity was called
-	 * 0 = First time this activity has been called. A fighter/fighters has yet to be selected
-	 * 1 = The user has already selected one fighter previously before navigating back to here
-	 * 2 = The user has selected 2 fighters previously, before navigating back to here
-	 */
-	private int mode = 0;
-	
 	/**
 	 * The ESPN ID for the fighter this profile will display. This value will
 	 * also be sent to comparison search so the comparison search can display a
 	 * mini profile for the same fighter.
 	 */
-	private int espnId1, espnId2;	
+	private int espnId1;	
 
 	/**
 	 * TextView and ImageView fields.
@@ -77,23 +66,7 @@ public class FighterProfileActivity extends Activity {
 		// Get Fighter ESPN Id.
 		
 		Bundle bundle = getIntent().getExtras();
-		if (bundle.getInt("espnId2") != 0)
-		{
-			mode = 2;
-			espnId1 = bundle.getInt("espnId1");
-			espnId2 = bundle.getInt("espnId2");
-		}
-		else if (bundle.getInt("espnId1") != 0)
-		{
-			mode = 1;
-			espnId1 = bundle.getInt("espnId1");
-			espnId2 = 0;
-		}
-		else
-		{
-			espnId1 = 0;
-			espnId2 = 0;
-		}
+		espnId1 = bundle.getInt("espnId1");
 		
 		if (espnId1 > 0) {
 			// Config ImageLoader.
@@ -154,9 +127,7 @@ public class FighterProfileActivity extends Activity {
 	public void eventMenu()
 	{
 		Intent intent = new Intent(FighterProfileActivity.this,
-				FightEventActivity.class);
-		intent.putExtra("espnId1", espnId1);
-		intent.putExtra("espnId2", espnId2);
+				FightEventListActivity.class);
 		startActivity(intent);
 	}
 	

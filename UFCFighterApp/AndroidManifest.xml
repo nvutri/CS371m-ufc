@@ -29,6 +29,9 @@
             android:name="yftvn.ufc.activities.FightEventActivity"
             android:theme="@android:style/Theme.Holo" />
         <activity
+            android:name="yftvn.ufc.activities.FightEventListActivity"
+            android:theme="@android:style/Theme.Holo" />
+        <activity
             android:name="yftvn.ufc.activities.FighterSearchActivity"
             android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" />

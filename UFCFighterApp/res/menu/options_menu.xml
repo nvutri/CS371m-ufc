@@ -2,7 +2,7 @@
     
 	<item 
 	    android:id="@+id/event_menu"
-		android:title="Event" />
+		android:title="UFC Events" />
 	<item 
 	    android:id="@+id/fighter_search_menu"
 		android:title="Fighter Search" />
