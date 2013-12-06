@@ -8,6 +8,7 @@ import yftvn.ufc.data.FighterData;
 import yftvn.ufc.models.FightRecord;
 import yftvn.ufc.models.Fighter;
 import yftvn.ufc.models.Record;
+import yftvn.ufc.views.ComparisonFightRowLayout;
 import yftvn.ufc.views.PreviousFightRowLayout;
 import android.app.Activity;
 import android.content.Intent;
@@ -37,11 +38,6 @@ public class ComparisonProfileActivity extends Activity {
 	 */
 
 	private int espnId1, espnId2;
-
-	/**
-	 * This stores the results of a third fighter these two fighters have fought
-	 */
-	// private ArrayList<FightRecord> compFights;
 
 	/**
 	 * TextView and ImageView fields.
@@ -91,6 +87,7 @@ public class ComparisonProfileActivity extends Activity {
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				getApplicationContext()).build();
 
+		// TODO(nvutri): Move each task to an async process.
 		// Display fighter 1 profile.
 		if (espnId1 > 0) {
 			mImgLoader1 = ImageLoader.getInstance();
@@ -105,12 +102,10 @@ public class ComparisonProfileActivity extends Activity {
 			displayFighterProfile2(espnId2);
 		}
 
-		// Display previous fight encounters.
+		// Display previous fight encounters and comparision fights.
 		if (espnId1 > 0 && espnId2 > 0) {
 			displayPreviousFights(espnId1, espnId2);
-
-			// compFights = FightRecordData.getComparisonFight(espnId1,
-			// espnId2);
+			displayComparisonFights(espnId1, espnId2);
 		}
 
 	}
@@ -242,6 +237,20 @@ public class ComparisonProfileActivity extends Activity {
 			PreviousFightRowLayout row = new PreviousFightRowLayout(this,
 					fightRec);
 			fHView.addView(row);
+		}
+	}
+
+	private void displayComparisonFights(int espnId1, int espnId2) {
+		ArrayList<FightRecord> compFights = FightRecordData.getComparisonFight(
+				espnId1, espnId2);
+		LinearLayout comparisonView = (LinearLayout) findViewById(R.id.comparison_fights);
+		Log.d("ComparisonFights", String.valueOf(compFights.size()));
+		for (int index = 0; index < compFights.size() / 2; ++index) {
+			FightRecord fightRec1 = compFights.get(2 * index);
+			FightRecord fightRec2 = compFights.get(2 * index + 1);
+			ComparisonFightRowLayout row = new ComparisonFightRowLayout(this,
+					fightRec1, fightRec2);
+			comparisonView.addView(row);
 		}
 	}
 
