@@ -243,8 +243,8 @@ public class ComparisonProfileActivity extends Activity {
 	 * @return String of the correct Photo URL to be displayed.
 	 */
 	private static String getPhotoURL(int espnId) {
-		return String.format(PHOTO_URL_FORMAT, espnId, PHOTO_DEFAULT_WIDTH,
-				PHOTO_DEFAULT_HEIGHT);
+		return String.format(PHOTO_URL_FORMAT, espnId,
+				PHOTO_DEFAULT_WIDTH, PHOTO_DEFAULT_HEIGHT);
 	}
 
 }
