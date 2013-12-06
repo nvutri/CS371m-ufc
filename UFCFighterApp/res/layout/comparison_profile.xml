@@ -5,21 +5,20 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <RelativeLayout
             android:id="@+id/pics_row"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true" >
+            android:layout_height="wrap_content" >
 
             <ImageView
                 android:id="@+id/fighterPic1"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="5dp"
                 android:contentDescription="@string/fighter_picture_description"
                 android:gravity="center_horizontal" />
 
@@ -28,7 +27,6 @@
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="5dp"
                 android:contentDescription="@string/fighter_picture_description"
                 android:gravity="center_horizontal" />
         </RelativeLayout>
@@ -36,15 +34,14 @@
         <LinearLayout
             android:id="@+id/names_row"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/pics_row" >
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/comparision_profile_text_margin"
-                android:layout_weight="0.3"
+                android:layout_weight="0.2"
                 android:gravity="center"
                 android:text="@string/name"
                 android:textSize="@dimen/profile_text_size"
@@ -62,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/comparision_profile_text_margin"
-                android:layout_weight="0.3"
+                android:layout_weight="0.2"
                 android:gravity="center"
                 android:text="@string/name"
                 android:textSize="@dimen/profile_text_size"
@@ -73,7 +70,6 @@
             android:id="@+id/stats_row"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@+id/names_row"
             android:baselineAligned="false" >
 
             <RelativeLayout
@@ -249,19 +245,10 @@
                     android:textSize="@dimen/profile_text_size" />
             </RelativeLayout>
         </LinearLayout>
-        
-        <LinearLayout
-            android:id="@+id/prev_fights"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/stats_row"
-            android:baselineAligned="false" >
 
-            <ListView
-                android:id="@+id/prevListView"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </RelativeLayout>
+        <!-- List View for Previous Fights -->
+
+        <include layout="@layout/previous_fights" />
+    </LinearLayout>
 
 </ScrollView>

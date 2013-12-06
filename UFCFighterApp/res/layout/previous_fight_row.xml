@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <!-- Opponent -->
+
+    <TextView
+        android:id="@+id/previous_fight_winner"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="@string/winner"
+        android:textSize="@dimen/previous_fight_text_size" />
+
+    <!-- Decision -->
+
+    <TextView
+        android:id="@+id/previous_fight_decision"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="@string/decision"
+        android:textSize="@dimen/previous_fight_text_size" />
+
+    <!-- Round -->
+
+    <TextView
+        android:id="@+id/previous_fight_round"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="@string/round"
+        android:textSize="@dimen/previous_fight_text_size" />
+
+    <!-- Time -->
+
+    <TextView
+        android:id="@+id/previous_fight_time"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="@string/time"
+        android:textSize="@dimen/previous_fight_text_size" />
+
+</LinearLayout>

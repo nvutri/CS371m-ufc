@@ -10,5 +10,5 @@
     <dimen name="event_vs_text_size">12dp</dimen>
     <dimen name="comparision_profile_text_margin">5dp</dimen>
     <dimen name="fight_history_text_size">18dp</dimen>
-
+    <dimen name="previous_fight_text_size">18dp</dimen>
 </resources>
