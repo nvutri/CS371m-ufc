@@ -40,12 +40,12 @@ public class ComparisonProfileActivity extends Activity {
 	 * This stores the results of the previous encounters between the two
 	 * fighters
 	 */
-	private ArrayList<FightRecord> prevFights;
+	// private ArrayList<FightRecord> prevFights;
 
 	/**
 	 * This stores the results of a third fighter these two fighters have fought
 	 */
-	private ArrayList<FightRecord> compFights;
+	// private ArrayList<FightRecord> compFights;
 
 	/**
 	 * TextView and ImageView fields.
@@ -90,10 +90,10 @@ public class ComparisonProfileActivity extends Activity {
 		Log.d(TAG, "espn ID 2: " + bundle.getInt("espnId2"));
 
 		// setup the intersection array lists
-		prevFights = FightRecordData.getPrevFightRecords(espnId1, espnId2);
-		compFights = FightRecordData.getComparisonFight(espnId1, espnId2);
+		// prevFights = FightRecordData.getPrevFightRecords(espnId1, espnId2);
+		// compFights = FightRecordData.getComparisonFight(espnId1, espnId2);
 
-		Log.d(TAG, "size of prevFights is: " + prevFights.size());
+		// Log.d(TAG, "size of prevFights is: " + prevFights.size());
 
 		// Config ImageLoader.
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
@@ -243,8 +243,8 @@ public class ComparisonProfileActivity extends Activity {
 	 * @return String of the correct Photo URL to be displayed.
 	 */
 	private static String getPhotoURL(int espnId) {
-		return String.format(PHOTO_URL_FORMAT, espnId,
-				PHOTO_DEFAULT_WIDTH, PHOTO_DEFAULT_HEIGHT);
+		return String.format(PHOTO_URL_FORMAT, espnId, PHOTO_DEFAULT_WIDTH,
+				PHOTO_DEFAULT_HEIGHT);
 	}
 
 }

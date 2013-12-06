@@ -12,6 +12,7 @@ import yftvn.ufc.views.FightHistoryRowLayout;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -167,7 +168,8 @@ public class FighterProfileActivity extends Activity {
 		fightHistory = FightRecordData.getSingleFightRecords(espnId);
 		LinearLayout fHView = (LinearLayout) findViewById(R.id.fight_history_listview);
 		for (FightRecord fightRec : fightHistory) {
-			FightHistoryRowLayout row = new FightHistoryRowLayout(this, fightRec);
+			FightHistoryRowLayout row = new FightHistoryRowLayout(this,
+					fightRec);
 			fHView.addView(row);
 		}
 	}

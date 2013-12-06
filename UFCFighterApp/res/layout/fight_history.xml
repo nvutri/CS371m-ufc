@@ -21,7 +21,8 @@
     <LinearLayout
         android:id="@+id/fight_history_listview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="fill_parent" >
+
         <include layout="@layout/fight_history_row" >
         </include>
     </LinearLayout>
