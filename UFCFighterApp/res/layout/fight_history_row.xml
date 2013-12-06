@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@layout/fight_history_row"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- Opponent -->
+
+    <TextView
+        android:id="@+id/fight_history_opponent"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="@string/fight_history_opponent"
+        android:textSize="@dimen/fight_history_text_size" />
+
+    <!-- Result -->
+
+    <TextView
+        android:id="@+id/fight_history_result"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="@string/fight_history_result"
+        android:textSize="@dimen/fight_history_text_size" />
+
+    <!-- Decision -->
+
+    <TextView
+        android:id="@+id/fight_history_decision"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:text="@string/fight_history_decision"
+        android:textSize="@dimen/fight_history_text_size" />
+
+    <!-- Round -->
+
+    <TextView
+        android:id="@+id/fight_history_round"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="@string/fight_history_round"
+        android:textSize="@dimen/fight_history_text_size" />
+
+    <!-- Time -->
+
+    <TextView
+        android:id="@+id/fight_history_time"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="@string/fight_history_time"
+        android:textSize="@dimen/fight_history_text_size" />
+
+</LinearLayout>
