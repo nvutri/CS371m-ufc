@@ -1,9 +1,14 @@
 package yftvn.ufc.activities;
 
+import java.util.ArrayList;
+
 import yftvn.ufc.R;
+import yftvn.ufc.data.FightRecordData;
 import yftvn.ufc.data.FighterData;
+import yftvn.ufc.models.FightRecord;
 import yftvn.ufc.models.Fighter;
 import yftvn.ufc.models.Record;
+import yftvn.ufc.views.FightHistoryRowLayout;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -26,8 +32,8 @@ public class FighterProfileActivity extends Activity {
 	 * also be sent to comparison search so the comparison search can display a
 	 * mini profile for the same fighter.
 	 */
-	private int espnId1;
-
+	private Integer espnId;
+	private ArrayList<FightRecord> fightHistory;
 	/**
 	 * TextView and ImageView fields.
 	 */
@@ -62,16 +68,18 @@ public class FighterProfileActivity extends Activity {
 		// Get Fighter ESPN Id.
 
 		Bundle bundle = getIntent().getExtras();
-		espnId1 = bundle.getInt("espnId1");
+		espnId = bundle.getInt("espnId1");
 
-		if (espnId1 > 0) {
+		if (espnId > 0) {
 			// Config ImageLoader.
 			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 					getApplicationContext()).build();
 			mImgLoader = ImageLoader.getInstance();
 			mImgLoader.init(config);
 			// Display fighter profile.
-			displayFighterProfile(espnId1);
+			displayFighterProfile();
+			// Display fighter fighting history.
+			displayFighterHistory();
 		}
 	}
 
@@ -132,7 +140,7 @@ public class FighterProfileActivity extends Activity {
 	public void comparisonSearchMenu() {
 		Intent intent = new Intent(FighterProfileActivity.this,
 				ComparisonSearchActivity.class);
-		intent.putExtra("espnId1", espnId1);
+		intent.putExtra("espnId1", espnId);
 		startActivity(intent);
 	}
 
@@ -141,8 +149,8 @@ public class FighterProfileActivity extends Activity {
 	 * 
 	 * @param espnId
 	 */
-	private void displayFighterProfile(int espnId) {
-		String imageUri = getPhotoURL(espnId);
+	private void displayFighterProfile() {
+		String imageUri = getPhotoURL();
 		Fighter profile = FighterData.getFighter(espnId);
 		Record rec = profile.getRecord();
 		mImgLoader.displayImage(imageUri, mImgView);
@@ -155,11 +163,20 @@ public class FighterProfileActivity extends Activity {
 		mTitlesTextView.setText(profile.getTitles());
 	}
 
+	private void displayFighterHistory() {
+		fightHistory = FightRecordData.getSingleFightRecords(espnId);
+		LinearLayout fHView = (LinearLayout) findViewById(R.id.fight_history_listview);
+		for (FightRecord fightRec : fightHistory) {
+			FightHistoryRowLayout row = new FightHistoryRowLayout(this, fightRec);
+			fHView.addView(row);
+		}
+	}
+
 	/**
 	 * @param espnId
 	 * @return String of the correct Photo URL to be displayed.
 	 */
-	private static String getPhotoURL(int espnId) {
+	private String getPhotoURL() {
 		return String.format(PHOTO_URL_FORMAT, espnId, PHOTO_DEFAULT_WIDTH,
 				PHOTO_DEFAULT_HEIGHT);
 	}
