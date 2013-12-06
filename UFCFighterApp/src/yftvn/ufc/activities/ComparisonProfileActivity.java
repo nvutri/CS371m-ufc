@@ -8,6 +8,7 @@ import yftvn.ufc.data.FighterData;
 import yftvn.ufc.models.FightRecord;
 import yftvn.ufc.models.Fighter;
 import yftvn.ufc.models.Record;
+import yftvn.ufc.views.PreviousFightRowLayout;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -35,12 +37,6 @@ public class ComparisonProfileActivity extends Activity {
 	 */
 
 	private int espnId1, espnId2;
-
-	/**
-	 * This stores the results of the previous encounters between the two
-	 * fighters
-	 */
-	// private ArrayList<FightRecord> prevFights;
 
 	/**
 	 * This stores the results of a third fighter these two fighters have fought
@@ -89,34 +85,34 @@ public class ComparisonProfileActivity extends Activity {
 		Log.d(TAG, "espn ID 1: " + bundle.getInt("espnId1"));
 		Log.d(TAG, "espn ID 2: " + bundle.getInt("espnId2"));
 
-		// setup the intersection array lists
-		// prevFights = FightRecordData.getPrevFightRecords(espnId1, espnId2);
-		// compFights = FightRecordData.getComparisonFight(espnId1, espnId2);
-
 		// Log.d(TAG, "size of prevFights is: " + prevFights.size());
 
 		// Config ImageLoader.
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				getApplicationContext()).build();
 
+		// Display fighter 1 profile.
 		if (espnId1 > 0) {
 			mImgLoader1 = ImageLoader.getInstance();
 			mImgLoader1.init(config);
-			// Display fighter profile.
 			displayFighterProfile1(espnId1);
 		}
 
+		// Display fighter 2 profile.
 		if (espnId2 > 0) {
 			mImgLoader2 = ImageLoader.getInstance();
 			mImgLoader2.init(config);
-			// Display fighter profile.
 			displayFighterProfile2(espnId2);
 		}
 
-		// PrevAdapter adapter = new PrevAdapter(this, R.layout.prev_row,
-		// prevFights);
-		// ListView prevListView = (ListView) findViewById(R.id.prevListView);
-		// prevListView.setAdapter(adapter);
+		// Display previous fight encounters.
+		if (espnId1 > 0 && espnId2 > 0) {
+			displayPreviousFights(espnId1, espnId2);
+
+			// compFights = FightRecordData.getComparisonFight(espnId1,
+			// espnId2);
+		}
+
 	}
 
 	/**
@@ -236,6 +232,17 @@ public class ComparisonProfileActivity extends Activity {
 		mNameTextView2.setOnClickListener(createClickListener(espnId));
 		mImgView2.setOnClickListener(createClickListener(espnId));
 		// mTitlesTextView2.setText(profile.getTitles());
+	}
+
+	private void displayPreviousFights(int espnId1, int espnId2) {
+		ArrayList<FightRecord> prevFights = FightRecordData
+				.getPrevFightRecords(espnId1, espnId2);
+		LinearLayout fHView = (LinearLayout) findViewById(R.id.previous_fights);
+		for (FightRecord fightRec : prevFights) {
+			PreviousFightRowLayout row = new PreviousFightRowLayout(this,
+					fightRec);
+			fHView.addView(row);
+		}
 	}
 
 	/**
