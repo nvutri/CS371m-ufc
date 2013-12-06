@@ -81,8 +81,6 @@ public class ComparisonProfileActivity extends Activity {
 		Log.d(TAG, "espn ID 1: " + bundle.getInt("espnId1"));
 		Log.d(TAG, "espn ID 2: " + bundle.getInt("espnId2"));
 
-		// Log.d(TAG, "size of prevFights is: " + prevFights.size());
-
 		// Config ImageLoader.
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				getApplicationContext()).build();
