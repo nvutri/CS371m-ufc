@@ -21,6 +21,7 @@
     <string name="two">You haven\'t selected a second fighter yet</string>
     <string name="fight_history_header">Fight History</string>
     <string name="previous_fight_header">Previous Fights</string>
+    <string name="comparison_fight_header">Comparison Fights</string>
     <string name="opponent">Opponent</string>
     <string name="winner">Winner</string>
     <string name="result">Result</string>

@@ -249,6 +249,10 @@
         <!-- List View for Previous Fights -->
 
         <include layout="@layout/previous_fights" />
+
+        <!-- List View for Comparison Mutual Fights -->
+
+        <include layout="@layout/comparison_fights" />
     </LinearLayout>
 
 </ScrollView>
