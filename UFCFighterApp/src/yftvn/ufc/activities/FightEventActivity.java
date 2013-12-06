@@ -60,12 +60,11 @@ public class FightEventActivity extends Activity {
 		fightEvents = FightEventData.getAllFightEvents(eventId);
 		
 		initHeaderView();
+		
 		// Displaying all the fight events.
 		FightAdapter adapter = new FightAdapter(this, R.layout.event_row,
 				fightEvents);
 		ListView listViewE = (ListView) findViewById(R.id.listViewE);
-		//View header = (View) getLayoutInflater().inflate(R.layout.event_header, null);
-		//listViewE.addHeaderView(header);
 		listViewE.setAdapter(adapter);
 
 		listViewE.setOnItemClickListener(new AdapterView.OnItemClickListener() {
