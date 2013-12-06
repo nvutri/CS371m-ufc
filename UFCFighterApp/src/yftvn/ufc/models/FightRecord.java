@@ -21,6 +21,8 @@ public class FightRecord {
 	private String result;
 	private String decision;
 
+	private static final String WIN_RESULT = "Win";
+
 	/**
 	 * Public Constructor of a Fight Record.
 	 * 
@@ -80,4 +82,14 @@ public class FightRecord {
 		return decision;
 	}
 
+	/**
+	 * @return the ID of the winner of the fight.
+	 */
+	public Integer getWinner() {
+		if (result.equals(WIN_RESULT)) {
+			return fighter;
+		} else {
+			return opponent;
+		}
+	}
 }
