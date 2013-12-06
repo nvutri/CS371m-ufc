@@ -1,5 +1,6 @@
 package yftvn.ufc.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import yftvn.ufc.models.Fighter;
@@ -31,15 +32,18 @@ public class FighterData {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery(FIGHTER_TABLE);
 		query.whereEqualTo(FIGHTER_TABLE_ESPNID, espnId);
 		ParseObject fighterParse = new ParseObject(FIGHTER_TABLE);
-		List<ParseObject> fighterList;
+		List<ParseObject> fighterList = new ArrayList<ParseObject>();
 		try {
 			fighterList = query.find();
-			fighterParse = fighterList.get(0);
-			assert 1 == fighterList.size();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return new Fighter(espnId, fighterParse);
+		if (fighterList.size() > 0) {
+			fighterParse = fighterList.get(0);
+			return new Fighter(espnId, fighterParse);
+		} else {
+			return null;
+		}
 	}
 
 }
