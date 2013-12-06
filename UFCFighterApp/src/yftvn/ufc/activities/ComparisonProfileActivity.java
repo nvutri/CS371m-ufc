@@ -3,25 +3,21 @@ package yftvn.ufc.activities;
 import java.util.ArrayList;
 
 import yftvn.ufc.R;
-import yftvn.ufc.adapters.FightAdapter;
-import yftvn.ufc.adapters.PrevAdapter;
 import yftvn.ufc.data.FightRecordData;
 import yftvn.ufc.data.FighterData;
 import yftvn.ufc.models.FightRecord;
 import yftvn.ufc.models.Fighter;
 import yftvn.ufc.models.Record;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -31,23 +27,23 @@ public class ComparisonProfileActivity extends Activity {
 
 	// A tag for the cat log
 	private static final String TAG = "UFC Fighter App";
-	
+
 	/**
 	 * The ESPN ID for the fighter this profile will display. This value will
 	 * also be sent to comparison search so the comparison search can display a
 	 * mini profile for the same fighter.
 	 */
-	private int espnId1, espnId2;	
-	
+
+	private int espnId1, espnId2;
+
 	/**
-	 * This stores the results of the previous encounters between the
-	 * two fighters
+	 * This stores the results of the previous encounters between the two
+	 * fighters
 	 */
 	private ArrayList<FightRecord> prevFights;
-	
+
 	/**
-	 * This stores the results of a third fighter these two fighters
-	 * have fought
+	 * This stores the results of a third fighter these two fighters have fought
 	 */
 	private ArrayList<FightRecord> compFights;
 
@@ -60,7 +56,7 @@ public class ComparisonProfileActivity extends Activity {
 	private static TextView mWSubTextView1, mWSubTextView2;
 	private static TextView mWDTextView1, mWDTextView2;
 	private static TextView mLossesTextView1, mLossesTextView2;
-	private static TextView mTitlesTextView1, mTitlesTextView2;
+	// private static TextView mTitlesTextView1, mTitlesTextView2;
 	private static ImageView mImgView1, mImgView2;
 	private static ImageLoader mImgLoader1, mImgLoader2;
 
@@ -83,20 +79,20 @@ public class ComparisonProfileActivity extends Activity {
 		// Associate TextFields and display info.
 		initFighterViewInfo1();
 		initFighterViewInfo2();
-		
+
 		// Get Fighter ESPN Id.
 		Bundle bundle = getIntent().getExtras();
 		espnId1 = bundle.getInt("espnId1");
 		espnId2 = bundle.getInt("espnId2");
-		
+
 		Log.d(TAG, "We have entered ComparisonProfileActivity");
 		Log.d(TAG, "espn ID 1: " + bundle.getInt("espnId1"));
 		Log.d(TAG, "espn ID 2: " + bundle.getInt("espnId2"));
-		
-		//setup the intersection array lists
+
+		// setup the intersection array lists
 		prevFights = FightRecordData.getPrevFightRecords(espnId1, espnId2);
 		compFights = FightRecordData.getComparisonFight(espnId1, espnId2);
-		
+
 		Log.d(TAG, "size of prevFights is: " + prevFights.size());
 
 		// Config ImageLoader.
@@ -116,11 +112,11 @@ public class ComparisonProfileActivity extends Activity {
 			// Display fighter profile.
 			displayFighterProfile2(espnId2);
 		}
-		
-//		PrevAdapter adapter = new PrevAdapter(this, R.layout.prev_row,
-//				prevFights);
-//		ListView prevListView = (ListView) findViewById(R.id.prevListView);
-//		prevListView.setAdapter(adapter);
+
+		// PrevAdapter adapter = new PrevAdapter(this, R.layout.prev_row,
+		// prevFights);
+		// ListView prevListView = (ListView) findViewById(R.id.prevListView);
+		// prevListView.setAdapter(adapter);
 	}
 
 	/**
@@ -149,10 +145,26 @@ public class ComparisonProfileActivity extends Activity {
 		mImgView2 = (ImageView) findViewById(R.id.fighterPic2);
 	}
 
-	@Override 
-	public boolean onCreateOptionsMenu(Menu menu) 
-	{ 
-		super.onCreateOptionsMenu(menu); 
+	/**
+	 * Create a listener for click event.
+	 * 
+	 * @param espnId
+	 * @return
+	 */
+	private OnClickListener createClickListener(final Integer espnId) {
+		return new OnClickListener() {
+			public void onClick(View view) {
+				Intent intent = new Intent(ComparisonProfileActivity.this,
+						FighterProfileActivity.class);
+				intent.putExtra("espnId1", espnId);
+				startActivity(intent);
+			}
+		};
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
 
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.options_menu, menu);
@@ -161,30 +173,26 @@ public class ComparisonProfileActivity extends Activity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{
-		switch (item.getItemId()) 
-		{
-			case R.id.event_menu:
-				eventMenu();
-				return true;
-				
-			case R.id.fighter_search_menu: 
-				fighterSearchMenu();   	
-				return true;
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.event_menu:
+			eventMenu();
+			return true;
+
+		case R.id.fighter_search_menu:
+			fighterSearchMenu();
+			return true;
 		}
 		return false;
 	}
-	
-	public void eventMenu()
-	{
+
+	public void eventMenu() {
 		Intent intent = new Intent(ComparisonProfileActivity.this,
 				FightEventListActivity.class);
 		startActivity(intent);
 	}
-	
-	public void fighterSearchMenu()
-	{
+
+	public void fighterSearchMenu() {
 		Intent intent = new Intent(ComparisonProfileActivity.this,
 				FighterSearchActivity.class);
 		startActivity(intent);
@@ -209,6 +217,8 @@ public class ComparisonProfileActivity extends Activity {
 		mWSubTextView1.setText(String.valueOf(rec.getSubmission()));
 		mWDTextView1.setText(String.valueOf(rec.getDecisionWins()));
 		mLossesTextView1.setText(String.valueOf(rec.getLosses()));
+		mNameTextView1.setOnClickListener(createClickListener(espnId));
+		mImgView1.setOnClickListener(createClickListener(espnId));
 		// mTitlesTextView1.setText(profile.getTitles());
 	}
 
@@ -223,6 +233,8 @@ public class ComparisonProfileActivity extends Activity {
 		mWSubTextView2.setText(String.valueOf(rec.getSubmission()));
 		mWDTextView2.setText(String.valueOf(rec.getDecisionWins()));
 		mLossesTextView2.setText(String.valueOf(rec.getLosses()));
+		mNameTextView2.setOnClickListener(createClickListener(espnId));
+		mImgView2.setOnClickListener(createClickListener(espnId));
 		// mTitlesTextView2.setText(profile.getTitles());
 	}
 
