@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.util.Log;
+import android.util.SparseArray;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -19,6 +20,8 @@ public class FighterBasicData {
 	private static HashMap<String, Integer> fighterEspnId;
 	// ArrayList of Fighter's Name.
 	private static ArrayList<String> fighterNames;
+	// HashMap from ESPN id to Fighter's Name.
+	private static SparseArray<String> fighters;
 
 	// Fighter data table.
 	private static final String FIGHTER_DATA_TABLE = "FighterData";
@@ -39,6 +42,7 @@ public class FighterBasicData {
 		// Fighter Basic Data.
 		fighterEspnId = new HashMap<String, Integer>();
 		fighterNames = new ArrayList<String>();
+		fighters = new SparseArray<String>();
 		try {
 			List<ParseObject> fighterList = query.find();
 			assert 1 == fighterList.size();
@@ -70,6 +74,10 @@ public class FighterBasicData {
 			names[i] = fighterNames.get(i);
 		}
 		return names;
+	}
+
+	public static String getFighterName(Integer espnId) {
+		return fighters.get(espnId);
 	}
 
 	/**
@@ -113,6 +121,7 @@ public class FighterBasicData {
 				Integer espnId = row.getInt(0);
 				fighterEspnId.put(fullname, espnId);
 				fighterNames.add(fullname);
+				fighters.put(espnId, fullname);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
