@@ -1,7 +1,11 @@
 package yftvn.ufc.activities;
 
+import java.util.ArrayList;
+
 import yftvn.ufc.R;
+import yftvn.ufc.data.FightRecordData;
 import yftvn.ufc.data.FighterData;
+import yftvn.ufc.models.FightRecord;
 import yftvn.ufc.models.Fighter;
 import yftvn.ufc.models.Record;
 import android.app.Activity;
@@ -29,7 +33,19 @@ public class ComparisonProfileActivity extends Activity {
 	 * also be sent to comparison search so the comparison search can display a
 	 * mini profile for the same fighter.
 	 */
+
 	private int espnId1, espnId2;
+
+	/**
+	 * This stores the results of the previous encounters between the two
+	 * fighters
+	 */
+	private ArrayList<FightRecord> prevFights;
+
+	/**
+	 * This stores the results of a third fighter these two fighters have fought
+	 */
+	private ArrayList<FightRecord> compFights;
 
 	/**
 	 * TextView and ImageView fields.
@@ -73,6 +89,12 @@ public class ComparisonProfileActivity extends Activity {
 		Log.d(TAG, "espn ID 1: " + bundle.getInt("espnId1"));
 		Log.d(TAG, "espn ID 2: " + bundle.getInt("espnId2"));
 
+		// setup the intersection array lists
+		prevFights = FightRecordData.getPrevFightRecords(espnId1, espnId2);
+		compFights = FightRecordData.getComparisonFight(espnId1, espnId2);
+
+		Log.d(TAG, "size of prevFights is: " + prevFights.size());
+
 		// Config ImageLoader.
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				getApplicationContext()).build();
@@ -90,6 +112,11 @@ public class ComparisonProfileActivity extends Activity {
 			// Display fighter profile.
 			displayFighterProfile2(espnId2);
 		}
+
+		// PrevAdapter adapter = new PrevAdapter(this, R.layout.prev_row,
+		// prevFights);
+		// ListView prevListView = (ListView) findViewById(R.id.prevListView);
+		// prevListView.setAdapter(adapter);
 	}
 
 	/**
