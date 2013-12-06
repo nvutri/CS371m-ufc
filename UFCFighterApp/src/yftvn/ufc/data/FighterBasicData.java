@@ -77,7 +77,11 @@ public class FighterBasicData {
 	}
 
 	public static String getFighterName(Integer espnId) {
-		return fighters.get(espnId);
+		String name = fighters.get(espnId);
+		if (name == null) {
+			name = "Unknown";
+		}
+		return name;
 	}
 
 	/**
