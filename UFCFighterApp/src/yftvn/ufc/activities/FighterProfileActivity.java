@@ -5,12 +5,8 @@ import yftvn.ufc.data.FighterData;
 import yftvn.ufc.models.Fighter;
 import yftvn.ufc.models.Record;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,16 +17,16 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class FighterProfileActivity extends Activity {
-	
+
 	// A tag for the cat log
 	private static final String TAG = "UFC Fighter App";
-	
+
 	/**
 	 * The ESPN ID for the fighter this profile will display. This value will
 	 * also be sent to comparison search so the comparison search can display a
 	 * mini profile for the same fighter.
 	 */
-	private int espnId1;	
+	private int espnId1;
 
 	/**
 	 * TextView and ImageView fields.
@@ -64,10 +60,10 @@ public class FighterProfileActivity extends Activity {
 		// Associate TextFields and display info.
 		initFighterViewInfo();
 		// Get Fighter ESPN Id.
-		
+
 		Bundle bundle = getIntent().getExtras();
 		espnId1 = bundle.getInt("espnId1");
-		
+
 		if (espnId1 > 0) {
 			// Config ImageLoader.
 			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
@@ -93,10 +89,9 @@ public class FighterProfileActivity extends Activity {
 		mImgView = (ImageView) findViewById(R.id.fighterPic);
 	}
 
-	@Override 
-	public boolean onCreateOptionsMenu(Menu menu) 
-	{ 
-		super.onCreateOptionsMenu(menu); 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
 
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.fighter_profile, menu);
@@ -105,43 +100,38 @@ public class FighterProfileActivity extends Activity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{
-		switch (item.getItemId()) 
-		{
-			case R.id.event_menu:
-				eventMenu();
-				return true;
-				
-			case R.id.fighter_search_menu: 
-				fighterSearchMenu();   	
-				return true;
-				
-			case R.id.comparison_search:
-                comparisonSearchMenu();
-                return true;
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.event_menu:
+			eventMenu();
+			return true;
+
+		case R.id.fighter_search_menu:
+			fighterSearchMenu();
+			return true;
+
+		case R.id.comparison_search:
+			comparisonSearchMenu();
+			return true;
 		}
 		return false;
 	}
-	
-	public void eventMenu()
-	{
+
+	public void eventMenu() {
 		Intent intent = new Intent(FighterProfileActivity.this,
 				FightEventListActivity.class);
 		startActivity(intent);
 	}
-	
-	public void fighterSearchMenu()
-	{
+
+	public void fighterSearchMenu() {
 		Intent intent = new Intent(FighterProfileActivity.this,
 				FighterSearchActivity.class);
 		startActivity(intent);
 	}
-	
-	public void comparisonSearchMenu()
-	{
+
+	public void comparisonSearchMenu() {
 		Intent intent = new Intent(FighterProfileActivity.this,
-                ComparisonSearchActivity.class);
+				ComparisonSearchActivity.class);
 		intent.putExtra("espnId1", espnId1);
 		startActivity(intent);
 	}
