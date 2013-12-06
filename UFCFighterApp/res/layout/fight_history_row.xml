@@ -10,7 +10,7 @@
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:text="@string/fight_history_opponent"
+        android:text="@string/opponent"
         android:textSize="@dimen/fight_history_text_size" />
 
     <!-- Result -->
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:text="@string/fight_history_result"
+        android:text="@string/result"
         android:textSize="@dimen/fight_history_text_size" />
 
     <!-- Decision -->
@@ -31,7 +31,7 @@
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:text="@string/fight_history_decision"
+        android:text="@string/decision"
         android:textSize="@dimen/fight_history_text_size" />
 
     <!-- Round -->
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:text="@string/fight_history_round"
+        android:text="@string/round"
         android:textSize="@dimen/fight_history_text_size" />
 
     <!-- Time -->
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:text="@string/fight_history_time"
+        android:text="@string/time"
         android:textSize="@dimen/fight_history_text_size" />
 
 </LinearLayout>
