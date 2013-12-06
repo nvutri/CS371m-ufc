@@ -1,5 +1,7 @@
 package yftvn.ufc.models;
 
+import android.annotation.SuppressLint;
+
 /**
  * Fighting Record.
  */
@@ -37,6 +39,7 @@ public class FightRecord {
 	 * @param decision
 	 *            : decision made by referee.
 	 */
+	@SuppressLint("DefaultLocale")
 	public FightRecord(Integer eventId, Integer fighter, Integer opponent,
 			String round, String time, String result, String decision) {
 		this.eventId = eventId;
@@ -44,7 +47,8 @@ public class FightRecord {
 		this.opponent = opponent;
 		this.round = round;
 		this.time = time;
-		this.result = result;
+		this.result = result.substring(0, 1)
+				+ result.substring(1).toLowerCase();
 		this.decision = decision;
 	}
 
