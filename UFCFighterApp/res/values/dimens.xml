@@ -11,4 +11,6 @@
     <dimen name="comparision_profile_text_margin">5dp</dimen>
     <dimen name="fight_history_text_size">18dp</dimen>
     <dimen name="previous_fight_text_size">18dp</dimen>
+    <dimen name="custom_layout_row_padding_bottom">5dp</dimen>
+
 </resources>

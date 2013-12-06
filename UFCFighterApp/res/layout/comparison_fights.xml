@@ -16,14 +16,14 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
-    <include layout="@layout/comparison_fight_row" >
-    </include>
-
     <LinearLayout
         android:id="@+id/comparison_fights"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
+
+        <include layout="@layout/comparison_fight_row" >
+        </include>
     </LinearLayout>
 
 </LinearLayout>
