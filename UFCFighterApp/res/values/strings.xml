@@ -19,5 +19,10 @@
     <string name="one">You haven\'t selected a fighter yet</string>
     <string name="two">You haven\'t selected a second fighter yet</string>
     <string name="fight_history_header">Fight History</string>
+    <string name="fight_history_opponent">Opponent</string>
+    <string name="fight_history_result">Result</string>
+    <string name="fight_history_decision">Decision</string>
+    <string name="fight_history_round">Round</string>
+    <string name="fight_history_time">Time</string>
 
 </resources>
